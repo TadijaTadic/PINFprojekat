@@ -12,6 +12,7 @@ public class Application {
 		UIManager.put("OptionPane.cancelButtonText", "Otkaži");
 		
 		MainFrame.getInstance().setVisible(true);
+		
 	}
 
 }

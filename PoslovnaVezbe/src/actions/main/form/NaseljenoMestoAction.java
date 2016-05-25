@@ -18,7 +18,7 @@ public class NaseljenoMestoAction  extends AbstractAction{
 		putValue(SHORT_DESCRIPTION, "Naseljeno mesto");
 		putValue(NAME, "Naseljeno mesto");
 	}
-	
+	//
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		NaseljenoMestoStandardForm form = new NaseljenoMestoStandardForm();

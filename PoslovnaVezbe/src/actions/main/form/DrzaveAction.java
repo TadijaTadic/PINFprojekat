@@ -19,7 +19,7 @@ public class DrzaveAction  extends AbstractAction{
 		putValue(SHORT_DESCRIPTION, "Države");
 		putValue(NAME, "Države");
 	}
-	
+	//
 	@Override
 	public void actionPerformed(ActionEvent arg0) {	
 		DrzavaForm form = new DrzavaForm();

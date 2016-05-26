@@ -1,6 +1,5 @@
 package actions.main.form;
 
-import gui.standard.form.DrzavaStandardForm;
 import gui.standard.form.NaseljenoMestoStandardForm;
 
 import java.awt.event.ActionEvent;

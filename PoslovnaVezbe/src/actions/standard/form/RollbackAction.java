@@ -1,8 +1,7 @@
-
 package actions.standard.form;
 
-import gui.standard.form.DrzavaStandardForm;
-import gui.standard.form.NaseljenoMestoStandardForm;
+import gui.standard.form.AbstractForm;
+import gui.standard.form.DrzavaForm;
 
 import java.awt.event.ActionEvent;
 
@@ -17,34 +16,22 @@ import pattern.State;
 public class RollbackAction extends AbstractAction {
 
 	private static final long serialVersionUID = 1L;
-	private JDialog standardForm;
+	private AbstractForm form;
 
 	public RollbackAction(JDialog standardForm) {
 		putValue(SMALL_ICON, new ImageIcon(getClass().getResource("/img/remove.gif")));
 		putValue(SHORT_DESCRIPTION, "Poništi");
-		this.standardForm=standardForm;
+		this.form=(AbstractForm) standardForm;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (standardForm instanceof DrzavaStandardForm) {
-			DrzavaStandardForm dsf = (DrzavaStandardForm) standardForm;
-			State state = dsf.getContext().getState();
-			if (state instanceof AddState) {
-				DrzavaStandardForm.editState.doAction(dsf);
-			}
-			if (state instanceof SearchState)
-				DrzavaStandardForm.editState.doAction(dsf);
+		State state = form.getContext().getState();
+		if (state instanceof AddState) {
+			DrzavaForm.editState.doAction(form);
 		}
-		else if (standardForm instanceof NaseljenoMestoStandardForm) {
-			NaseljenoMestoStandardForm nmsf = (NaseljenoMestoStandardForm) standardForm;
-			State state = nmsf.getContext().getState();
-			if (state instanceof AddState) {
-				NaseljenoMestoStandardForm.editState.doAction(nmsf);
-			}
-			if (state instanceof SearchState)
-				NaseljenoMestoStandardForm.editState.doAction(nmsf);
-		}
-				
+		if (state instanceof SearchState)
+			DrzavaForm.editState.doAction(form);
+			
 	}
 }

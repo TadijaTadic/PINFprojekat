@@ -1,33 +1,33 @@
 package pattern;
 
-import javax.swing.JDialog;
+import gui.standard.form.AbstractForm;
+import gui.standard.form.DrzavaForm;
 
-import gui.standard.form.DrzavaStandardForm;
-import gui.standard.form.NaseljenoMestoStandardForm;
 
 public class AddState implements State {
 
 	@Override
-	public void doAction(JDialog sf) {
-		if (sf instanceof DrzavaStandardForm) {
-			DrzavaStandardForm dsf = (DrzavaStandardForm) sf;
-			dsf.getContext().setState(this);
-			dsf.getTfSifra().setText("");
-			dsf.getTfNaziv().setText("");
-			dsf.getTfSifra().requestFocus();
-			dsf.getBtnDelete().getAction().setEnabled(false);
-			dsf.getBtnFirst().getAction().setEnabled(false);
-			dsf.getBtnLast().getAction().setEnabled(false);
-			dsf.getBtnNext().getAction().setEnabled(false);
-			dsf.getBtnPickup().getAction().setEnabled(false);
-			dsf.getBtnNextForm().getAction().setEnabled(false);
-			dsf.getBtnPrevious().getAction().setEnabled(false);
-			dsf.getBtnRefresh().getAction().setEnabled(false);
-			dsf.getBtnSearch().getAction().setEnabled(false);
-			dsf.getTblGrid().clearSelection();
+	public void doAction(AbstractForm form) {
+		if (form instanceof DrzavaForm) {
+			DrzavaForm df = (DrzavaForm) form;
+			df.getContext().setState(this);
+			df.getTfSifra().setText("");
+			df.getTfNaziv().setText("");
+			df.getTfSifra().requestFocus();
+			df.getBtnDelete().getAction().setEnabled(false);
+			df.getBtnFirst().getAction().setEnabled(false);
+			df.getBtnLast().getAction().setEnabled(false);
+			df.getBtnNext().getAction().setEnabled(false);
+			df.getBtnPickup().getAction().setEnabled(false);
+			df.getBtnNextForm().getAction().setEnabled(false);
+			df.getBtnPrevious().getAction().setEnabled(false);
+			df.getBtnRefresh().getAction().setEnabled(false);
+			df.getBtnSearch().getAction().setEnabled(false);
+			df.getTblGrid().clearSelection();
 		}
-		else if (sf instanceof NaseljenoMestoStandardForm) {
-			NaseljenoMestoStandardForm nmsf = (NaseljenoMestoStandardForm) sf;
+		/*
+		else if (form instanceof NaseljenoMestoStandardForm) {
+			NaseljenoMestoStandardForm nmsf = (NaseljenoMestoStandardForm) form;
 			nmsf.getContext().setState(this);
 			nmsf.getTfSifra().setText("");
 			nmsf.getTfNaziv().setText("");
@@ -44,7 +44,7 @@ public class AddState implements State {
 			nmsf.getBtnRefresh().getAction().setEnabled(false);
 			nmsf.getBtnSearch().getAction().setEnabled(false);
 			nmsf.getTblGrid().clearSelection();
-		}
+		}*/
 	}
 
 }

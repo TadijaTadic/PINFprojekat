@@ -1,11 +1,9 @@
 package pattern;
 
-import javax.swing.JDialog;
-
-import gui.standard.form.DrzavaStandardForm;
+import gui.standard.form.AbstractForm;
 
 public interface State {
 	
-	public void doAction(JDialog sf);
+	public void doAction(AbstractForm form);
 	
 }

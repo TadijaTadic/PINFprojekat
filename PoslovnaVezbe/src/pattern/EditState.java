@@ -1,29 +1,28 @@
 package pattern;
 
-import gui.standard.form.DrzavaStandardForm;
-import gui.standard.form.NaseljenoMestoStandardForm;
-
-import javax.swing.JDialog;
+import gui.standard.form.AbstractForm;
+import gui.standard.form.DrzavaForm;
 
 public class EditState implements State {
 
 	@Override
-	public void doAction(JDialog sf) {
-		if (sf instanceof DrzavaStandardForm) {
-			DrzavaStandardForm dsf = (DrzavaStandardForm) sf;
-			dsf.getContext().setState(this);
-			dsf.sync();
-			dsf.getBtnDelete().getAction().setEnabled(true);
-			dsf.getBtnFirst().getAction().setEnabled(true);
-			dsf.getBtnLast().getAction().setEnabled(true);
-			dsf.getBtnNext().getAction().setEnabled(true);
-			dsf.getBtnPickup().getAction().setEnabled(true);
-			dsf.getBtnNextForm().getAction().setEnabled(true);
-			dsf.getBtnPrevious().getAction().setEnabled(true);
-			dsf.getBtnRefresh().getAction().setEnabled(true);
-			dsf.getBtnSearch().getAction().setEnabled(true);
-			dsf.getBtnAdd().getAction().setEnabled(true);
+	public void doAction(AbstractForm form) {
+		if (form instanceof DrzavaForm) {
+			DrzavaForm df = (DrzavaForm) form;
+			df.getContext().setState(this);
+			df.sync();
+			df.getBtnDelete().getAction().setEnabled(true);
+			df.getBtnFirst().getAction().setEnabled(true);
+			df.getBtnLast().getAction().setEnabled(true);
+			df.getBtnNext().getAction().setEnabled(true);
+			df.getBtnPickup().getAction().setEnabled(true);
+			df.getBtnNextForm().getAction().setEnabled(true);
+			df.getBtnPrevious().getAction().setEnabled(true);
+			df.getBtnRefresh().getAction().setEnabled(true);
+			df.getBtnSearch().getAction().setEnabled(true);
+			df.getBtnAdd().getAction().setEnabled(true);
 		}
+		/*
 		else if (sf instanceof NaseljenoMestoStandardForm) {
 			NaseljenoMestoStandardForm nmsf = (NaseljenoMestoStandardForm) sf;
 			nmsf.getContext().setState(this);
@@ -38,6 +37,7 @@ public class EditState implements State {
 			nmsf.getBtnSearch().getAction().setEnabled(true);
 			nmsf.getBtnAdd().getAction().setEnabled(true);
 		}
+		*/
 	}
 
 }

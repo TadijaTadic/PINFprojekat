@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
 
 public class LastAction extends AbstractAction {
 
@@ -14,10 +13,10 @@ public class LastAction extends AbstractAction {
 	private AbstractForm form;
 
 
-	public LastAction(JDialog standardForm) {
+	public LastAction(AbstractForm form) {
 		putValue(SMALL_ICON, new ImageIcon(getClass().getResource("/img/last.gif")));
 		putValue(SHORT_DESCRIPTION, "Poslednji");
-		this.form=(AbstractForm) standardForm;
+		this.form=form;
 	}
 
 	@Override

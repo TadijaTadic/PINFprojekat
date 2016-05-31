@@ -123,14 +123,14 @@ public class DrzavaForm extends AbstractForm {
 
 	@Override
 	public void removeRow() {
-		if (JOptionPane.showConfirmDialog(this, "Da li ste sigurni?",
-				"Pitanje", JOptionPane.YES_NO_OPTION) != JOptionPane.YES_OPTION) {
-			return;
-		}
 		int index = tblGrid.getSelectedRow();
 		DrzaveTableModel tableModel = (DrzaveTableModel) tblGrid.getModel();
 		if (index == -1) // Ako nema selektovanog reda (tabela prazna)
 			return; // izlazak
+		if (JOptionPane.showConfirmDialog(this, "Da li ste sigurni?",
+				"Pitanje", JOptionPane.YES_NO_OPTION) != JOptionPane.YES_OPTION) {
+			return;
+		}
 		// kada obrisemo tekuci red, selektovacemo sledeci (newindex):
 		int newIndex = index;
 		// sem ako se obrise poslednji red, tada selektujemo prethodni

@@ -6,22 +6,21 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
 
 
 public class FirstAction extends AbstractAction {
 
 	private static final long serialVersionUID = 1L;
-	private AbstractForm standardForm;
+	private AbstractForm form;
 
-	public FirstAction(JDialog standardForm) {
+	public FirstAction(AbstractForm form) {
 		putValue(SMALL_ICON, new ImageIcon(getClass().getResource("/img/first.gif")));
 		putValue(SHORT_DESCRIPTION, "Pocetak");
-		this.standardForm=(AbstractForm) standardForm;
+		this.form=form;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		standardForm.goFirst();
+		form.goFirst();
 	}
 }

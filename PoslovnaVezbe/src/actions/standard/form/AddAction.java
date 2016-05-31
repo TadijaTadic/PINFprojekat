@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
 
 public class AddAction extends AbstractAction {
 
@@ -14,10 +13,10 @@ public class AddAction extends AbstractAction {
 	//kada se napravi genericka forma, staviti tu klasu umesto JDialog
 	private AbstractForm form;
 	
-	public AddAction(JDialog standardForm) {
+	public AddAction(AbstractForm form) {
 		putValue(SMALL_ICON, new ImageIcon(getClass().getResource("/img/add.gif")));
 		putValue(SHORT_DESCRIPTION, "Dodavanje");
-		this.form=(AbstractForm) standardForm;
+		this.form=form;
 	}
 
 	@Override

@@ -11,6 +11,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
+import actions.main.form.BankeAction;
 import actions.main.form.DrzaveAction;
 import actions.main.form.NaseljenoMestoAction;
 import database.DBConnection;
@@ -58,6 +59,8 @@ public class MainFrame extends JFrame{
 		orgSemaMenu.add(drzaveMI);
 		JMenuItem mestoMI = new JMenuItem(new NaseljenoMestoAction());
 		orgSemaMenu.add(mestoMI);
+		JMenuItem bankeMI = new JMenuItem(new BankeAction());
+		orgSemaMenu.add(bankeMI);
 
 		menuBar.add(orgSemaMenu);
 		

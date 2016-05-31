@@ -1,4 +1,4 @@
-package gui.standard.form;
+/*package gui.standard.form;
 
 import gui.main.form.MainFrame;
 
@@ -422,3 +422,4 @@ public class NaseljenoMestoStandardForm extends JDialog{
 	
 }
 
+*/

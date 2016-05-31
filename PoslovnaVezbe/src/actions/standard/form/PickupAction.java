@@ -1,35 +1,27 @@
 package actions.standard.form;
 
-import gui.standard.form.DrzavaStandardForm;
-import gui.standard.form.NaseljenoMestoStandardForm;
-import util.Column;
+import gui.standard.form.AbstractForm;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.WindowEvent;
 
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
-
-import util.ColumnList;
 
 public class PickupAction extends AbstractAction {
 
 	private static final long serialVersionUID = 1L;
-	private JDialog standardForm;
+	private AbstractForm form;
 	
-	public PickupAction(JDialog standardForm) {
+	public PickupAction(AbstractForm form) {
 		putValue(SMALL_ICON, new ImageIcon(getClass().getResource("/img/zoom-pickup.gif")));
 		putValue(SHORT_DESCRIPTION, "Zoom pickup");
-		this.standardForm = standardForm;
+		this.form = form;
 		
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		if (standardForm instanceof DrzavaStandardForm) {
-			((DrzavaStandardForm) standardForm).pickup();				
-		}
+		form.pickup();
 	}
 	
 }

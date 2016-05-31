@@ -1,4 +1,4 @@
-package gui.standard.form;
+/*package gui.standard.form;
 
 import gui.main.form.MainFrame;
 import util.Column;
@@ -400,3 +400,4 @@ public class DrzavaStandardForm extends JDialog{
 	 
 
 }
+*/

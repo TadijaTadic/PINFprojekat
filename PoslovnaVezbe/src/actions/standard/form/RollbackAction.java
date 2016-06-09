@@ -2,6 +2,7 @@
 package actions.standard.form;
 
 import gui.standard.form.DrzavaStandardForm;
+import gui.standard.form.KlijentForm;
 import gui.standard.form.NaseljenoMestoStandardForm;
 
 import java.awt.event.ActionEvent;
@@ -44,6 +45,16 @@ public class RollbackAction extends AbstractAction {
 			}
 			if (state instanceof SearchState)
 				NaseljenoMestoStandardForm.editState.doAction(nmsf);
+		}
+		
+		else if (standardForm instanceof KlijentForm) {
+			KlijentForm kf = (KlijentForm) standardForm;
+			State state = kf.getContext().getState();
+			if (state instanceof AddState) {
+				KlijentForm.editState.doAction(kf);
+			}
+			if (state instanceof SearchState)
+				KlijentForm.editState.doAction(kf);
 		}
 				
 	}

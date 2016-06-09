@@ -1,6 +1,7 @@
 package actions.standard.form;
 
 import gui.standard.form.DrzavaStandardForm;
+import gui.standard.form.KlijentForm;
 import gui.standard.form.NaseljenoMestoStandardForm;
 
 import java.awt.event.ActionEvent;
@@ -27,6 +28,8 @@ public class DeleteAction extends AbstractAction {
 			((DrzavaStandardForm) standardForm).removeRow();
 		else if (standardForm instanceof NaseljenoMestoStandardForm)
 			((NaseljenoMestoStandardForm) standardForm).removeRow();
+		else if (standardForm instanceof KlijentForm)
+			((KlijentForm) standardForm).removeRow();
 	
 	}
 }

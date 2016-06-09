@@ -3,6 +3,7 @@ package pattern;
 import javax.swing.JDialog;
 
 import gui.standard.form.DrzavaStandardForm;
+import gui.standard.form.KlijentForm;
 import gui.standard.form.NaseljenoMestoStandardForm;
 
 public class AddState implements State {
@@ -44,6 +45,25 @@ public class AddState implements State {
 			nmsf.getBtnRefresh().getAction().setEnabled(false);
 			nmsf.getBtnSearch().getAction().setEnabled(false);
 			nmsf.getTblGrid().clearSelection();
+		}
+		else if (sf instanceof KlijentForm) {
+			KlijentForm kf = (KlijentForm) sf;
+			kf.getContext().setState(this);
+			kf.getTfIdKlijenta().setText("");
+			kf.getTfAdresa().setText("");
+			kf.getTfTelefon().setText("");
+			kf.getTfEmail().setText("");
+			kf.getTfIdKlijenta().requestFocus();
+			kf.getBtnDelete().getAction().setEnabled(false);
+			kf.getBtnFirst().getAction().setEnabled(false);
+			kf.getBtnLast().getAction().setEnabled(false);
+			kf.getBtnNext().getAction().setEnabled(false);
+			kf.getBtnPickup().getAction().setEnabled(false);
+			kf.getBtnNextForm().getAction().setEnabled(false);
+			kf.getBtnPrevious().getAction().setEnabled(false);
+			kf.getBtnRefresh().getAction().setEnabled(false);
+			kf.getBtnSearch().getAction().setEnabled(false);
+			kf.getTblGrid().clearSelection();
 		}
 	}
 

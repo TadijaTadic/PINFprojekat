@@ -1,6 +1,7 @@
 package pattern;
 
 import gui.standard.form.DrzavaStandardForm;
+import gui.standard.form.KlijentForm;
 import gui.standard.form.NaseljenoMestoStandardForm;
 
 import javax.swing.JDialog;
@@ -37,6 +38,20 @@ public class EditState implements State {
 			nmsf.getBtnRefresh().getAction().setEnabled(true);
 			nmsf.getBtnSearch().getAction().setEnabled(true);
 			nmsf.getBtnAdd().getAction().setEnabled(true);
+		}
+		else if (sf instanceof KlijentForm) {
+			KlijentForm kf = (KlijentForm) sf;
+			kf.getContext().setState(this);
+			kf.sync();
+			kf.getBtnDelete().getAction().setEnabled(true);
+			kf.getBtnFirst().getAction().setEnabled(true);
+			kf.getBtnLast().getAction().setEnabled(true);
+			kf.getBtnNext().getAction().setEnabled(true);
+			kf.getBtnNextForm().getAction().setEnabled(true);
+			kf.getBtnPrevious().getAction().setEnabled(true);
+			kf.getBtnRefresh().getAction().setEnabled(true);
+			kf.getBtnSearch().getAction().setEnabled(true);
+			kf.getBtnAdd().getAction().setEnabled(true);
 		}
 	}
 

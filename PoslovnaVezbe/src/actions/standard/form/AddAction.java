@@ -1,6 +1,7 @@
 package actions.standard.form;
 
 import gui.standard.form.DrzavaStandardForm;
+import gui.standard.form.KlijentForm;
 import gui.standard.form.NaseljenoMestoStandardForm;
 
 import java.awt.event.ActionEvent;
@@ -30,6 +31,10 @@ public class AddAction extends AbstractAction {
 		else if (standardForm instanceof NaseljenoMestoStandardForm) {
 			NaseljenoMestoStandardForm nmsf = (NaseljenoMestoStandardForm) standardForm;
 			NaseljenoMestoStandardForm.addState.doAction(nmsf);
+		}
+		else if (standardForm instanceof KlijentForm) {
+			KlijentForm kf = (KlijentForm) standardForm;
+			KlijentForm.addState.doAction(kf);
 		}
 		
 	}

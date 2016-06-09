@@ -1,8 +1,5 @@
 package actions.main.form;
 
-import gui.standard.form.DrzavaStandardForm;
-import gui.standard.form.NaseljenoMestoStandardForm;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
@@ -21,8 +18,8 @@ public class NaseljenoMestoAction  extends AbstractAction{
 	//
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		NaseljenoMestoStandardForm form = new NaseljenoMestoStandardForm();
-		form.setVisible(true);
+		/*NaseljenoMestoStandardForm form = new NaseljenoMestoStandardForm();
+		form.setVisible(true);*/
 	}
 }
 

@@ -1,24 +1,16 @@
 package gui.standard.form;
 
 import gui.main.form.MainFrame;
-import util.Column;
 
 import java.awt.Dimension;
 import java.sql.SQLException;
 
-import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.JToolBar;
-import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import pattern.AddState;
 import pattern.Context;
@@ -26,9 +18,7 @@ import pattern.EditState;
 import pattern.SearchState;
 import pattern.State;
 import util.ColumnList;
-import database.DBConnection;
 import model.DrzaveTableModel;
-import model.NaseljenoMestoTableModel;
 import net.miginfocom.swing.MigLayout;
 import actions.standard.form.AddAction;
 import actions.standard.form.CommitAction;
@@ -127,7 +117,6 @@ public class AbstractForm extends JDialog{
 		return context;
 	}
 
-	
 
 	public AbstractForm(){
 
@@ -244,29 +233,8 @@ public class AbstractForm extends JDialog{
 		add(bottomPanel, "grow, wrap");
 	}
 	
-	 public void removeRow() {
-		if (JOptionPane.showConfirmDialog(this, "Da li ste sigurni?",
-				"Pitanje", JOptionPane.YES_NO_OPTION) != JOptionPane.YES_OPTION) {
-			return;
-		}
-		int index = tblGrid.getSelectedRow();
-		DrzaveTableModel tableModel = (DrzaveTableModel) tblGrid.getModel();
-		if (index == -1) // Ako nema selektovanog reda (tabela prazna)
-			return; // izlazak
-		// kada obrisemo tekuci red, selektovacemo sledeci (newindex):
-		int newIndex = index;
-		// sem ako se obrise poslednji red, tada selektujemo prethodni
-		if (index == tableModel.getRowCount() - 1)
-			newIndex--;
-		try {
-			DrzaveTableModel dtm = (DrzaveTableModel) tblGrid.getModel();
-			dtm.deleteRow(index);
-			if (tableModel.getRowCount() > 0)
-				tblGrid.setRowSelectionInterval(newIndex, newIndex);
-		} catch (SQLException ex) {
-			JOptionPane.showMessageDialog(this, ex.getMessage(), "Greska",
-					JOptionPane.ERROR_MESSAGE);
-		}
+	public void removeRow() {
+		
 	}
 	 
 	public void addRow() {

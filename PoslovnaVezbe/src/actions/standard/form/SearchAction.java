@@ -1,34 +1,25 @@
 package actions.standard.form;
 
-import gui.standard.form.DrzavaStandardForm;
-import gui.standard.form.NaseljenoMestoStandardForm;
+import gui.standard.form.AbstractForm;
 
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
 
 public class SearchAction extends AbstractAction {
 
 	private static final long serialVersionUID = 1L;
-	private JDialog standardForm;
+	private AbstractForm form;
 
-	public SearchAction(JDialog standardForm) {
+	public SearchAction(AbstractForm form) {
 		putValue(SMALL_ICON, new ImageIcon(getClass().getResource("/img/search.gif")));
 		putValue(SHORT_DESCRIPTION, "Pretraga");
-		this.standardForm=standardForm;
+		this.form=form;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (standardForm instanceof DrzavaStandardForm) {
-			DrzavaStandardForm dsf = (DrzavaStandardForm) standardForm;
-			DrzavaStandardForm.serachState.doAction(dsf);			
-		}
-		else if (standardForm instanceof NaseljenoMestoStandardForm) {
-			NaseljenoMestoStandardForm nmsf = (NaseljenoMestoStandardForm) standardForm;
-			NaseljenoMestoStandardForm.serachState.doAction(nmsf);
-		}
+		AbstractForm.serachState.doAction(form);
 	}
 }

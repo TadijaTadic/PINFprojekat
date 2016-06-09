@@ -2,21 +2,17 @@ package pattern;
 
 import javax.swing.JDialog;
 
-import gui.standard.form.DrzavaStandardForm;
-import gui.standard.form.KlijentForm;
-import gui.standard.form.NaseljenoMestoStandardForm;
+import gui.standard.form.AbstractForm;
+import gui.standard.form.DrzavaForm;
 
 public class Context {
 	
 	private State state;
 	
-	public Context(JDialog form) {
-		if (form instanceof DrzavaStandardForm)
-			state = DrzavaStandardForm.editState;
-		else if (form instanceof NaseljenoMestoStandardForm)
-			state = NaseljenoMestoStandardForm.editState;
-		else if (form instanceof KlijentForm)
-			state = KlijentForm.editState;
+	public Context(AbstractForm form) {
+			state = AbstractForm.editState;
+		/*else if (form instanceof NaseljenoMestoStandardForm)
+			state = NaseljenoMestoStandardForm.editState;*/
 	}
 
 	public void setState(State state) {
@@ -28,3 +24,4 @@ public class Context {
 	}
 
 }
+

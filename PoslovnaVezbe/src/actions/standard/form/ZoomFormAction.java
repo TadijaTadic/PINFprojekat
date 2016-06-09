@@ -1,7 +1,6 @@
 package actions.standard.form;
 
-import gui.standard.form.DrzavaStandardForm;
-import gui.standard.form.NaseljenoMestoStandardForm;
+import gui.standard.form.AbstractForm;
 
 import java.awt.event.ActionEvent;
 
@@ -12,21 +11,21 @@ import javax.swing.JDialog;
 public class ZoomFormAction extends AbstractAction {
 
 	private static final long serialVersionUID = 1L;
-	private JDialog standardForm;
+	private AbstractForm form;
 
 	
-	public ZoomFormAction(JDialog sf) {
+	public ZoomFormAction(AbstractForm form) {
 		putValue(SHORT_DESCRIPTION, "Zoom");
 		putValue(NAME, "...");
-		this.standardForm = sf;
+		this.form = form;
 
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		if(standardForm instanceof NaseljenoMestoStandardForm) {
-			((NaseljenoMestoStandardForm) standardForm).zoom();
-		}
+		/*if(form instanceof NaseljenoMestoStandardForm) {
+			((NaseljenoMestoStandardForm) form).zoom();
+		}*/
 	}
 	
 }

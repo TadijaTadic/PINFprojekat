@@ -34,7 +34,7 @@ public class DrzaveTableModel extends DefaultTableModel {
 		while (rset.next()) {
 			String sifra = rset.getString("DR_SIFRA");
 			String naziv = rset.getString("DR_NAZIV");
-			addRow(new String[] { sifra, naziv });
+			addRow(new Object[] { sifra, naziv });
 		}
 		rset.close();
 		stmt.close();
@@ -122,7 +122,5 @@ public class DrzaveTableModel extends DefaultTableModel {
 				+sifra+ "%' AND dr_naziv LIKE '%" +naziv+ "%'";
 		fillData(sqlQuery);
 	}
-	
-	
 
 }

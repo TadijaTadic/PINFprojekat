@@ -4,6 +4,8 @@ import javax.swing.JCheckBox;
 import javax.swing.JTextField;
 
 
+
+import gui.standard.form.FizickoLiceForm;
 import gui.standard.form.KlijentForm;
 import gui.standard.form.AbstractForm;
 import gui.standard.form.BankaForm;
@@ -52,6 +54,14 @@ public class SearchState implements State {
 			kf.getTfTelefon().setText("");
 			kf.getTfEmail().setText("");
 			kf.getTfIdKlijenta().requestFocus();
+		}
+		
+		if (form instanceof FizickoLiceForm) {
+			FizickoLiceForm flf = (FizickoLiceForm) form;
+			flf.getContext().setState(this);
+			flf.getTfJMBG().requestFocus();
+			for (Object field : flf.collectionOfFields) 
+				((JTextField) field).setText("");
 		}
 	}
 

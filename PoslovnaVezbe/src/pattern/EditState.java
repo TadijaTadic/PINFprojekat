@@ -1,10 +1,13 @@
 package pattern;
 
 import gui.standard.form.KlijentForm;
+
 import javax.swing.JDialog;
+
 import gui.standard.form.AbstractForm;
 import gui.standard.form.BankaForm;
 import gui.standard.form.DrzavaForm;
+import gui.standard.form.FizickoLiceForm;
 
 public class EditState implements State {
 
@@ -36,6 +39,11 @@ public class EditState implements State {
 		if (form instanceof KlijentForm) {
 			KlijentForm kf = (KlijentForm) form;
 			kf.getContext().setState(this);
+		}
+		
+		if (form instanceof FizickoLiceForm) {
+			FizickoLiceForm flf = (FizickoLiceForm) form;
+			flf.getContext().setState(this);
 		}
 	}
 

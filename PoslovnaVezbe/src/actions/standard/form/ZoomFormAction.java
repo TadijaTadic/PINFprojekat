@@ -1,6 +1,7 @@
 package actions.standard.form;
 
 import gui.standard.form.AbstractForm;
+import gui.standard.form.FizickoLiceForm;
 
 import java.awt.event.ActionEvent;
 
@@ -23,9 +24,9 @@ public class ZoomFormAction extends AbstractAction {
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		/*if(form instanceof NaseljenoMestoStandardForm) {
-			((NaseljenoMestoStandardForm) form).zoom();
-		}*/
+		if(form instanceof FizickoLiceForm) {
+			((FizickoLiceForm) form).zoom();
+		}
 	}
 	
 }

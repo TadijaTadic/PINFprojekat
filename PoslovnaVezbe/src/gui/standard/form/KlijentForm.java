@@ -1,7 +1,9 @@
 package gui.standard.form;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -10,7 +12,10 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import util.Column;
+import util.ColumnList;
 import model.DrzaveTableModel;
+import model.FizickoLiceTableModel;
 import model.KlijentTableModel;
 
 public class KlijentForm extends AbstractForm {
@@ -181,5 +186,55 @@ public class KlijentForm extends AbstractForm {
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Greska",
 					JOptionPane.ERROR_MESSAGE);
 		}
+	}
+	@Override
+	public void search() {
+		/*String id = tfIdKlijenta.getText().trim();
+		String adresa = tfAdresa.getText().trim();
+		String telefon = tfTelefon.getText().trim();
+		String email = tfEmail.getText().trim();*/
+		Object[] collectionOfFields = { tfIdKlijenta, tfAdresa, tfTelefon, tfEmail};
+		ArrayList<String> values = new ArrayList<String>();
+		for (Object field : collectionOfFields) {
+				values.add(((JTextField) field).getText().trim());
+		}
+		KlijentTableModel ktm = (KlijentTableModel) tblGrid.getModel();
+		try {
+			ktm.searchRow(values);
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Greska",
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
+	public void pickup() {
+		 int index = tblGrid.getSelectedRow();
+		 String idKlijenta = (String)tblGrid.getModel().getValueAt(index, 0);
+		 String adresa = (String)tblGrid.getModel().getValueAt(index, 1);
+		 String telefon = (String)tblGrid.getModel().getValueAt(index, 2);
+	     String email = (String)tblGrid.getModel().getValueAt(index, 3);;
+		 list = new ColumnList();
+		 list.add(new Column("ID_KLIJENTA",idKlijenta));
+		 list.add(new Column("ADRESA",adresa));
+		 list.add(new Column("TELEFON",telefon));
+		 list.add(new Column("E_MAIL",email));
+		 this.setVisible(false);
+	}
+	
+	public void nextForm() {
+		int index = tblGrid.getSelectedRow();
+		String idKlijenta = (String)tblGrid.getModel().getValueAt(index, 0);
+	    //String naziv = (String)tblGrid.getModel().getValueAt(index, 1);
+		FizickoLiceForm form = new FizickoLiceForm();
+		FizickoLiceTableModel fltm = (FizickoLiceTableModel) form.getTblGrid().getModel();
+		try {
+			fltm.openAsChildForm("SELECT jmbg, ime, prezime, fizicko_lice.id_klijenta, fizicko_lice.adresa, fizicko_lice.e_mail, fizicko_lice.telefon FROM fizicko_lice "
+					+ "JOIN klijent on fizicko_lice.id_klijenta=klijent.id_klijenta WHERE fizicko_lice.id_klijenta LIKE '%"
+					+idKlijenta+ "%'");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		form.setVisible(true);
 	}
 }

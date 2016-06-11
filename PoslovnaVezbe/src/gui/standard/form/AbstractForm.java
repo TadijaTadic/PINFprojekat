@@ -18,7 +18,6 @@ import pattern.EditState;
 import pattern.SearchState;
 import pattern.State;
 import util.ColumnList;
-import model.DrzaveTableModel;
 import net.miginfocom.swing.MigLayout;
 import actions.standard.form.AddAction;
 import actions.standard.form.CommitAction;
@@ -45,7 +44,7 @@ public class AbstractForm extends JDialog{
 	public static final State editState = new EditState();
 	public static final State addState = new AddState();
 	public static final State serachState = new SearchState();	
-	private ColumnList list;
+	protected ColumnList list;
 	protected JPanel bottomPanel = new JPanel();
 	protected JPanel dataPanel = new JPanel();
 	

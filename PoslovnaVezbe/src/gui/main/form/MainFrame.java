@@ -13,6 +13,8 @@ import javax.swing.JOptionPane;
 
 import actions.main.form.BankeAction;
 import actions.main.form.DrzaveAction;
+import actions.main.form.FizickoLiceAction;
+import actions.main.form.KlijentAction;
 import actions.main.form.NaseljenoMestoAction;
 import database.DBConnection;
 
@@ -61,7 +63,10 @@ public class MainFrame extends JFrame{
 		orgSemaMenu.add(mestoMI);
 		JMenuItem bankeMI = new JMenuItem(new BankeAction());
 		orgSemaMenu.add(bankeMI);
-
+		JMenuItem klijentMI = new JMenuItem(new KlijentAction());
+		orgSemaMenu.add(klijentMI);
+		JMenuItem fizliceMI = new JMenuItem(new FizickoLiceAction());
+		orgSemaMenu.add(fizliceMI);
 		menuBar.add(orgSemaMenu);
 		
 		

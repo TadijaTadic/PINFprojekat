@@ -2,8 +2,10 @@ package model;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -131,6 +133,19 @@ public class KlijentTableModel extends DefaultTableModel {
 		fillData(sqlQuery);
 	}
 	*/
-	
+	public void searchRow(ArrayList<String> values) throws SQLException {
+		Statement stmt1 = DBConnection.getConnection().createStatement();
+		ResultSet rs = stmt1.executeQuery(basicQuery);
+		ResultSetMetaData rsmd = rs.getMetaData();
+		int columnCount = rsmd.getColumnCount();
+		String preparedString = "";
+		for (int i = 1; i <= columnCount-1; i++ ) {
+		  String name = rsmd.getColumnName(i);
+		  preparedString += name+" LIKE '%"+values.get(i-1)+"%' AND ";
+		}
+		preparedString += rsmd.getColumnName(columnCount)+" LIKE '%"+values.get(columnCount-1)+"%'";	
+		String sqlQuery = "SELECT * FROM klijent WHERE "+preparedString;
+		fillData(sqlQuery);				
+	}
 
 }

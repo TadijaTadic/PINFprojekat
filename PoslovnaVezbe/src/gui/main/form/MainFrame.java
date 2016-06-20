@@ -16,7 +16,9 @@ import actions.main.form.DrzaveAction;
 import actions.main.form.FizickoLiceAction;
 import actions.main.form.KlijentAction;
 import actions.main.form.KursnaListaAction;
+import actions.main.form.MedjubankarskiNalogAction;
 import actions.main.form.NaseljenoMestoAction;
+import actions.main.form.PravnoLiceAction;
 import database.DBConnection;
 
 public class MainFrame extends JFrame{
@@ -70,6 +72,10 @@ public class MainFrame extends JFrame{
 		orgSemaMenu.add(fizliceMI);
 		JMenuItem kursnaListaMI = new JMenuItem(new KursnaListaAction());
 		orgSemaMenu.add(kursnaListaMI);
+		JMenuItem medjbanknalMI = new JMenuItem(new MedjubankarskiNalogAction());
+		orgSemaMenu.add(medjbanknalMI);
+		JMenuItem pravnoliceMI = new JMenuItem(new PravnoLiceAction());
+		orgSemaMenu.add(pravnoliceMI);
 		menuBar.add(orgSemaMenu);
 		
 		

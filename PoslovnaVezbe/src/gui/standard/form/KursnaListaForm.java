@@ -2,6 +2,7 @@ package gui.standard.form;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -10,6 +11,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import actions.standard.form.ZoomFormAction;
 import model.KursnaListaTableModel;
 
 
@@ -23,6 +25,7 @@ public class KursnaListaForm extends AbstractForm {
 		private JTextField klDatum = new JTextField(20);
 		private JTextField klBroj = new JTextField(20);
 		private JTextField klDatPr = new JTextField(20);
+		private JButton btnZoom = new JButton("...");
 
 		
 		public JTextField getIdKursneListe() {
@@ -95,7 +98,9 @@ public class KursnaListaForm extends AbstractForm {
 			dataPanel.add(lblIDKursneListe);
 			dataPanel.add(idKursneListe,"wrap");
 			dataPanel.add(lblIDBanke);
-			dataPanel.add(idBanke,"wrap");
+			dataPanel.add(idBanke);
+			dataPanel.add(btnZoom, "wrap");
+			btnZoom.setAction(new ZoomFormAction(this));
 			dataPanel.add(lblDatum);
 			dataPanel.add(klDatum, "wrap");
 			dataPanel.add(lblBroj);
@@ -237,6 +242,15 @@ public class KursnaListaForm extends AbstractForm {
 				JOptionPane.showMessageDialog(this, e.getMessage(), "Greska",
 						JOptionPane.ERROR_MESSAGE);
 			}
+		}
+		
+		public void zoom() {
+			BankaForm bf = new BankaForm();
+			bf.setLocation(500,140);
+			bf.setModal(true);
+			bf.setVisible(true);
+			
+			//idBanke.setText((String)bf.getList().getValue("ID_BANKE"));
 		}
 	
 

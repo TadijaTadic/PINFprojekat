@@ -6,6 +6,9 @@ import javax.swing.JTextField;
 import gui.standard.form.FizickoLiceForm;
 import gui.standard.form.KlijentForm;
 import gui.standard.form.KursnaListaForm;
+import gui.standard.form.MedjubankarskiNalogForm;
+import gui.standard.form.NaseljenoMestoForm;
+import gui.standard.form.PravnoLiceForm;
 import gui.standard.form.AbstractForm;
 import gui.standard.form.BankaForm;
 import gui.standard.form.DrzavaForm;
@@ -69,6 +72,42 @@ public class AddState implements State {
 			klf.getKlBroj().setText("");
 			klf.getKlDatPr().setText("");
 			klf.getIdKursneListe().requestFocus();
+		}
+		if (form instanceof MedjubankarskiNalogForm) {
+			MedjubankarskiNalogForm mnf = (MedjubankarskiNalogForm) form;
+			mnf.getContext().setState(this);
+			mnf.getIdNaloga().requestFocus();
+			for (Object field : mnf.collectionOfFields) {
+				if (field instanceof JTextField)
+					((JTextField) field).setText("");
+				else if (field instanceof JCheckBox)
+					((JCheckBox) field).setSelected(false);
+			}
+		}
+		if(form instanceof NaseljenoMestoForm) {
+			NaseljenoMestoForm nmf = (NaseljenoMestoForm) form;
+			nmf.getContext().setState(this);
+			nmf.getNmSifra().setText("");
+			nmf.getDrSifra().setText("");
+			nmf.getNmNaziv().setText("");
+			nmf.getNmPTT().setText("");
+			nmf.getNmSifra().requestFocus();
+		}
+		if(form instanceof PravnoLiceForm) {
+			PravnoLiceForm plf = (PravnoLiceForm) form;
+			plf.getContext().setState(this);
+			plf.getIdKlijenta().setText("");
+			plf.getPib().setText("");
+			plf.getAdresa().setText("");
+			plf.getTelefon().setText("");
+			plf.getEmail().setText("");
+			plf.getNaziv().setText("");
+			plf.getWebadresa().setText("");
+			plf.getFax().setText("");
+			plf.getIme().setText("");
+			plf.getPrezime().setText("");
+			plf.getJmbg().setText("");
+			plf.getIdKlijenta().requestFocus();
 		}
 	}
 

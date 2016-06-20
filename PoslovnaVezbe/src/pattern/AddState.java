@@ -5,6 +5,7 @@ import javax.swing.JTextField;
 
 import gui.standard.form.FizickoLiceForm;
 import gui.standard.form.KlijentForm;
+import gui.standard.form.KursnaListaForm;
 import gui.standard.form.AbstractForm;
 import gui.standard.form.BankaForm;
 import gui.standard.form.DrzavaForm;
@@ -58,6 +59,16 @@ public class AddState implements State {
 			flf.getTfJMBG().requestFocus();
 			for (Object field : flf.collectionOfFields) 
 					((JTextField) field).setText("");
+		}
+		if (form instanceof KursnaListaForm) {
+			KursnaListaForm klf = (KursnaListaForm) form;
+			klf.getContext().setState(this);
+			klf.getIdKursneListe().setText("");
+			klf.getIdBanke().setText("");
+			klf.getKlDatum().setText("");
+			klf.getKlBroj().setText("");
+			klf.getKlDatPr().setText("");
+			klf.getIdKursneListe().requestFocus();
 		}
 	}
 

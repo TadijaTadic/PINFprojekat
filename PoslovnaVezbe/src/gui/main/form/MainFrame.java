@@ -15,6 +15,7 @@ import actions.main.form.BankeAction;
 import actions.main.form.DrzaveAction;
 import actions.main.form.FizickoLiceAction;
 import actions.main.form.KlijentAction;
+import actions.main.form.KursnaListaAction;
 import actions.main.form.NaseljenoMestoAction;
 import database.DBConnection;
 
@@ -67,6 +68,8 @@ public class MainFrame extends JFrame{
 		orgSemaMenu.add(klijentMI);
 		JMenuItem fizliceMI = new JMenuItem(new FizickoLiceAction());
 		orgSemaMenu.add(fizliceMI);
+		JMenuItem kursnaListaMI = new JMenuItem(new KursnaListaAction());
+		orgSemaMenu.add(kursnaListaMI);
 		menuBar.add(orgSemaMenu);
 		
 		

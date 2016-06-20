@@ -1,6 +1,7 @@
 package pattern;
 
 import gui.standard.form.KlijentForm;
+import gui.standard.form.KursnaListaForm;
 
 import javax.swing.JDialog;
 
@@ -44,6 +45,11 @@ public class EditState implements State {
 		if (form instanceof FizickoLiceForm) {
 			FizickoLiceForm flf = (FizickoLiceForm) form;
 			flf.getContext().setState(this);
+		}
+		
+		if (form instanceof KursnaListaForm) {
+			KursnaListaForm klf = (KursnaListaForm) form;
+			klf.getContext().setState(this);
 		}
 	}
 

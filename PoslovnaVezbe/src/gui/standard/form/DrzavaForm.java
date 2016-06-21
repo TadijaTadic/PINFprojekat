@@ -11,6 +11,10 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import model.DrzaveTableModel;
+import model.FizickoLiceTableModel;
+import model.NaseljenoMestoTableModel;
+import util.Column;
+import util.ColumnList;
 
 public class DrzavaForm extends AbstractForm {
 
@@ -161,6 +165,29 @@ public class DrzavaForm extends AbstractForm {
 
 	public void setTfNaziv(JTextField tfNaziv) {
 		this.tfNaziv = tfNaziv;
+	}
+	
+	public void pickup() {
+		 int index = tblGrid.getSelectedRow();
+		 String sifraDrzave = (String)tblGrid.getModel().getValueAt(index, 0);
+		 list = new ColumnList();
+		 list.add(new Column("DR_SIFRA",sifraDrzave));
+		 this.setVisible(false);
+	}
+	
+	public void nextForm() {
+		int index = tblGrid.getSelectedRow();
+		String sifraDrzave = (String)tblGrid.getModel().getValueAt(index, 0);
+		NaseljenoMestoForm form = new NaseljenoMestoForm();
+		NaseljenoMestoTableModel nmtm = (NaseljenoMestoTableModel) form.getTblGrid().getModel();
+		try {
+			nmtm.openAsChildForm("SELECT nm_sifra, dr_sifra, nm_naziv, nm_pttoznaka FROM naseljeno_mesto WHERE naseljeno_mesto.dr_sifra LIKE '%"
+					+sifraDrzave+ "%'");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		form.setVisible(true);
 	}
 		
 }

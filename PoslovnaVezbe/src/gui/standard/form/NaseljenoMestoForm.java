@@ -86,7 +86,7 @@ public class NaseljenoMestoForm extends AbstractForm {
 
 		public NaseljenoMestoForm() {
 			super();
-			setTitle("Kursne Liste");
+			setTitle("Naseljeno Mesto");
 			JLabel lblNmSifra = new JLabel ("Sifra Nas. Mesta:");
 			JLabel lblDrSifra = new JLabel("Sifra Drzave:");
 			JLabel lblNmNaziv = new JLabel("Naziv Nas. Mesta:");
@@ -241,7 +241,7 @@ public class NaseljenoMestoForm extends AbstractForm {
 			df.setModal(true);
 			df.setVisible(true);
 			
-			//drSifra.setText((String)df.getList().getValue("DR_SIFRA"));
+			drSifra.setText((String)df.getList().getValue("DR_SIFRA"));
 		}
 	
 

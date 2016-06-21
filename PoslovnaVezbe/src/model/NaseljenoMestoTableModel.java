@@ -113,7 +113,7 @@ public class NaseljenoMestoTableModel extends DefaultTableModel{
 	public int insertRow(String nmSifra, String drSifra, String nmNaziv, String nmPTT) throws SQLException {
 		int retVal = 0;
 		PreparedStatement stmt = DBConnection.getConnection().prepareStatement(
-				"INSERT INTO naseljeno_mesto (nm_sifra, dr_sifra, nm_nazic, nm_pttoznaka) VALUES (? ,?, ?, ?)");
+				"INSERT INTO naseljeno_mesto (nm_sifra, dr_sifra, nm_naziv, nm_pttoznaka) VALUES (? ,?, ?, ?)");
 		stmt.setString(1, nmSifra);
 		stmt.setString(2, drSifra);
 		stmt.setString(3, nmNaziv);

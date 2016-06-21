@@ -19,19 +19,19 @@ public class MedjubankarskiNalogForm extends AbstractForm {
 
 	private static final long serialVersionUID = 1L;
 	
-	private JTextField idNaloga = new JTextField(5);
+	private JTextField idNaloga = new JTextField(10);
 	private JTextField sifraBanke = new JTextField(5);
-	private JTextField banSifraBanke = new JTextField(20);
-	private JTextField ukupanIznos = new JTextField(20);
+	private JTextField banSifraBanke = new JTextField(5);
+	private JTextField ukupanIznos = new JTextField(15);
 	private JTextField datum = new JTextField(20);
 	private JCheckBox rtgs = new JCheckBox();
-	private JCheckBox status = new JCheckBox();
+	private JTextField status = new JTextField(2);
 	public Object[] collectionOfFields = { idNaloga, sifraBanke, banSifraBanke, ukupanIznos,
 			datum, rtgs, status };
 	
 	public MedjubankarskiNalogForm() {
 		super();
-		setTitle("Banke");
+		setTitle("Medjubankarski Nalozi");
 		JLabel lblIdNaloga = new JLabel("ID Naloga:");
 		JLabel lblSifraBanke = new JLabel("Sifra banke:");
 		JLabel lblBanSifraBanke = new JLabel("Ban Sifra Banke:");

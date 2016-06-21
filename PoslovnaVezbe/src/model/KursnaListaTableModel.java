@@ -154,5 +154,9 @@ public class KursnaListaTableModel extends DefaultTableModel {
 		fillData(sqlQuery);				
 	}
 	
+	public void openAsChildForm(String sql) throws SQLException{
+		fillData(sql);
+	}
+
 	
 }

@@ -250,7 +250,7 @@ public class KursnaListaForm extends AbstractForm {
 			bf.setModal(true);
 			bf.setVisible(true);
 			
-			//idBanke.setText((String)bf.getList().getValue("ID_BANKE"));
+			idBanke.setText((String)bf.getList().getValue("ID_BANKE"));
 		}
 	
 

@@ -40,7 +40,7 @@ public class MedjubankarskiNalogTableModel extends DefaultTableModel {
 				String ukupan_iznos = rset.getString("UKUPAN_IZNOS");
 				String datum = rset.getString("DATUM");
 				boolean rtgs = rset.getBoolean("RTGS_");
-				boolean status = rset.getBoolean("STATUS");
+				String status = rset.getString("STATUS");
 				
 				addRow(new Object[] { id_naloga, sifra_banke, ban_sifra_banke, ukupan_iznos, datum,
 						rtgs, status });

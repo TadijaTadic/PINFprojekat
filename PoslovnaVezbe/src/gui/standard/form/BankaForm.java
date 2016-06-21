@@ -14,6 +14,10 @@ import javax.swing.event.ListSelectionListener;
 
 import model.BankeTableModel;
 import model.DrzaveTableModel;
+import model.KursnaListaTableModel;
+import model.NaseljenoMestoTableModel;
+import util.Column;
+import util.ColumnList;
 
 public class BankaForm extends AbstractForm {
 	
@@ -29,6 +33,8 @@ public class BankaForm extends AbstractForm {
 	private JCheckBox cbBanka = new JCheckBox();
 	public Object[] collectionOfFields = { tfIdBanke, tfSifraBanke, tfPIB, tfNazivBanke,
 			tfAdresaBanke, tfEmailBanke, tfWebSajtBanke, tfTelefonBanke, tfFaxBanke, cbBanka};
+	
+	
 	
 	public BankaForm() {
 		super();
@@ -239,4 +245,26 @@ public class BankaForm extends AbstractForm {
 
 	}
 	
+	public void pickup() {
+		 int index = tblGrid.getSelectedRow();
+		 String idBanke = (String)tblGrid.getModel().getValueAt(index, 0);
+		 list = new ColumnList();
+		 list.add(new Column("ID_BANKE",idBanke));
+		 this.setVisible(false);
+	}
+	
+	public void nextForm() {
+		int index = tblGrid.getSelectedRow();
+		String idBanke = (String)tblGrid.getModel().getValueAt(index, 0);
+		KursnaListaForm form = new KursnaListaForm();
+		KursnaListaTableModel kltm = (KursnaListaTableModel) form.getTblGrid().getModel();
+		try {
+			kltm.openAsChildForm("SELECT id_kursne_liste, id_banke, kl_datum, kl_broj, kl_datpr FROM kursna_lista WHERE kursna_lista.id_banke LIKE '%"
+					+idBanke+ "%'");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		form.setVisible(true);
+	}
 }

@@ -12,6 +12,8 @@ import gui.standard.form.PravnoLiceForm;
 import gui.standard.form.AbstractForm;
 import gui.standard.form.BankaForm;
 import gui.standard.form.DrzavaForm;
+import gui.standard.form.RacuniPravnihLicaForm;
+import gui.standard.form.ValuteForm;
 
 public class AddState implements State {
 
@@ -108,6 +110,29 @@ public class AddState implements State {
 			plf.getPrezime().setText("");
 			plf.getJmbg().setText("");
 			plf.getIdKlijenta().requestFocus();
+		}
+		if (form instanceof RacuniPravnihLicaForm) {
+			RacuniPravnihLicaForm rplf = (RacuniPravnihLicaForm) form;
+			rplf.getContext().setState(this);
+			rplf.getIdRacuna().requestFocus();
+			for (Object field : rplf.collectionOfFields) {
+				if (field instanceof JTextField)
+					((JTextField) field).setText("");
+				else if (field instanceof JCheckBox)
+					((JCheckBox) field).setSelected(false);
+			}
+		}
+		if (form instanceof ValuteForm) {
+			ValuteForm vf = (ValuteForm) form;
+			vf.getContext().setState(this);
+			vf.getTfIdValute().requestFocus();
+			for (Object field : vf.collectionOfFields) {
+				if (field instanceof JTextField)
+					((JTextField) field).setText("");
+				else if (field instanceof JCheckBox)
+					((JCheckBox) field).setSelected(false);
+			}
+			
 		}
 	}
 

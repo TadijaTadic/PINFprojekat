@@ -8,6 +8,7 @@ import gui.standard.form.AbstractForm;
 import gui.standard.form.BankaForm;
 import gui.standard.form.DrzavaForm;
 import gui.standard.form.FizickoLiceForm;
+import gui.standard.form.KursuValutiForm;
 
 public class EditState implements State {
 
@@ -44,6 +45,10 @@ public class EditState implements State {
 		if (form instanceof FizickoLiceForm) {
 			FizickoLiceForm flf = (FizickoLiceForm) form;
 			flf.getContext().setState(this);
+		}
+		if (form instanceof KursuValutiForm) {
+			KursuValutiForm kvf = (KursuValutiForm) form;
+			kvf.getContext().setState(this);
 		}
 	}
 

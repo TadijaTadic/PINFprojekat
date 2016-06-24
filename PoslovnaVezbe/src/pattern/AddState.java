@@ -8,6 +8,7 @@ import gui.standard.form.KlijentForm;
 import gui.standard.form.AbstractForm;
 import gui.standard.form.BankaForm;
 import gui.standard.form.DrzavaForm;
+import gui.standard.form.KursuValutiForm;
 
 public class AddState implements State {
 
@@ -57,6 +58,13 @@ public class AddState implements State {
 			flf.getContext().setState(this);
 			flf.getTfJMBG().requestFocus();
 			for (Object field : flf.collectionOfFields) 
+					((JTextField) field).setText("");
+		}
+		if (form instanceof KursuValutiForm) {
+			KursuValutiForm kvf = (KursuValutiForm) form;
+			kvf.getContext().setState(this);
+			kvf.gettfRedniBroj().requestFocus();
+			for (Object field : kvf.collectionOfFields) 
 					((JTextField) field).setText("");
 		}
 	}

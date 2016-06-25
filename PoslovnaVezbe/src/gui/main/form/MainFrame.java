@@ -15,8 +15,13 @@ import actions.main.form.BankeAction;
 import actions.main.form.DrzaveAction;
 import actions.main.form.FizickoLiceAction;
 import actions.main.form.KlijentAction;
-import actions.main.form.KursuValutiAction;
+import actions.main.form.KursnaListaAction;
+import actions.main.form.MedjubankarskiNalogAction;
 import actions.main.form.NaseljenoMestoAction;
+import actions.main.form.PravnoLiceAction;
+import actions.main.form.RacuniAction;
+import actions.main.form.UkidanjeRacunaAction;
+import actions.main.form.ValuteAction;
 import database.DBConnection;
 
 public class MainFrame extends JFrame{
@@ -64,12 +69,22 @@ public class MainFrame extends JFrame{
 		orgSemaMenu.add(mestoMI);
 		JMenuItem bankeMI = new JMenuItem(new BankeAction());
 		orgSemaMenu.add(bankeMI);
-		/*JMenuItem klijentMI = new JMenuItem(new KlijentAction());
-		orgSemaMenu.add(klijentMI);*/
+		JMenuItem klijentMI = new JMenuItem(new KlijentAction());
+		orgSemaMenu.add(klijentMI);
 		JMenuItem fizliceMI = new JMenuItem(new FizickoLiceAction());
 		orgSemaMenu.add(fizliceMI);
-		JMenuItem kursvalutiMI = new JMenuItem(new KursuValutiAction());
-		orgSemaMenu.add(kursvalutiMI);
+		JMenuItem kursnaListaMI = new JMenuItem(new KursnaListaAction());
+		orgSemaMenu.add(kursnaListaMI);
+		JMenuItem medjbanknalMI = new JMenuItem(new MedjubankarskiNalogAction());
+		orgSemaMenu.add(medjbanknalMI);
+		JMenuItem pravnoliceMI = new JMenuItem(new PravnoLiceAction());
+		orgSemaMenu.add(pravnoliceMI);
+		JMenuItem racuniMI = new JMenuItem(new RacuniAction());
+		orgSemaMenu.add(racuniMI);
+		JMenuItem ukidanjeracunaMI = new JMenuItem(new UkidanjeRacunaAction());
+		orgSemaMenu.add(ukidanjeracunaMI);
+		JMenuItem valuteMI = new JMenuItem(new ValuteAction());
+		orgSemaMenu.add(valuteMI);
 		menuBar.add(orgSemaMenu);
 		
 		

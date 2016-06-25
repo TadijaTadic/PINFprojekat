@@ -6,6 +6,8 @@ import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
 import javax.swing.KeyStroke;
 
+import gui.standard.form.NaseljenoMestoForm;
+
 public class NaseljenoMestoAction  extends AbstractAction{
 	private static final long serialVersionUID = 1L;
 	
@@ -18,8 +20,8 @@ public class NaseljenoMestoAction  extends AbstractAction{
 	//
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		/*NaseljenoMestoStandardForm form = new NaseljenoMestoStandardForm();
-		form.setVisible(true);*/
+		NaseljenoMestoForm form = new NaseljenoMestoForm();
+		form.setVisible(true);
 	}
 }
 

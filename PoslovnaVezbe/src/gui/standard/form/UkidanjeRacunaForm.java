@@ -10,37 +10,42 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import model.DrzaveTableModel;
-import model.FizickoLiceTableModel;
-import model.NaseljenoMestoTableModel;
-import util.Column;
-import util.ColumnList;
+import model.UkidanjeTableModel;
 
-public class DrzavaForm extends AbstractForm {
-
-	private JTextField tfSifra = new JTextField(5);
-	private JTextField tfNaziv = new JTextField(20);
+public class UkidanjeRacunaForm extends AbstractForm {
+	private JTextField tfIdUkidanja = new JTextField(3);
+	private JTextField tfIdRacuna = new JTextField(20);
+	private JTextField tfDatumUkidanja = new JTextField(20);
+	private JTextField tfNaRacun = new JTextField(20);
 	
-	public DrzavaForm() {
+	
+	public UkidanjeRacunaForm() {
 		super();
-		setTitle("Države");
-		JLabel lblSifra = new JLabel ("Šifra države:");
-		JLabel lblNaziv = new JLabel("Naziv države:");
-
-		dataPanel.add(lblSifra);
-		dataPanel.add(tfSifra,"wrap");
-		dataPanel.add(lblNaziv);
-		dataPanel.add(tfNaziv);
+		setTitle("Ukidanje racuna");
+		JLabel lblIdUkidanja = new JLabel ("ID ukidanja:");
+		JLabel lblIdRacuna = new JLabel("ID racuna:");
+		JLabel lblDatumUkidanja = new JLabel("Datum ukidanja:");
+		JLabel lblNaRacun = new JLabel("Prenos na racun");
+		
+		dataPanel.add(lblIdUkidanja);
+		dataPanel.add(tfIdUkidanja,"wrap");
+		dataPanel.add(lblIdRacuna);
+		dataPanel.add(tfIdRacuna, "wrap");
+		dataPanel.add(lblDatumUkidanja);
+		dataPanel.add(tfDatumUkidanja, "wrap");
+		dataPanel.add(lblNaRacun);
+		dataPanel.add(tfNaRacun);
 		bottomPanel.add(dataPanel);
+		
+		toolBar.setVisible(false);
 	}
-
 	@Override
 	protected void initTable() {
 
 		JScrollPane scrollPane = new JScrollPane(tblGrid);
 		add(scrollPane, "grow, wrap");
-		DrzaveTableModel tableModel = new DrzaveTableModel(new String[] {
-				"Šifra", "Naziv" }, 0);
+		UkidanjeTableModel tableModel = new UkidanjeTableModel(new String[] {
+				"ID ukidanja", "ID racuna","Datum ukidanja","Prenos na racun" }, 0);
 		tblGrid.setModel(tableModel);
 
 		try {
@@ -66,69 +71,80 @@ public class DrzavaForm extends AbstractForm {
 					}
 				});
 	}
-
 	@Override
 	public void sync() {
 		int index = tblGrid.getSelectedRow();
 		if (index < 0) {
-			tfSifra.setText("");
-			tfNaziv.setText("");
+			tfIdUkidanja.setText("");
+			tfIdRacuna.setText("");
+			tfDatumUkidanja.setText("");
+			tfNaRacun.setText("");
 			return;
 		}
-		DrzaveTableModel tableModel =  (DrzaveTableModel) tblGrid.getModel();
-		String sifra = (String) tableModel.getValueAt(index, 0);
-		String naziv = (String) tableModel.getValueAt(index, 1);
-		tfSifra.setText(sifra);
-		tfNaziv.setText(naziv);
+		UkidanjeTableModel tableModel =  (UkidanjeTableModel) tblGrid.getModel();
+		String idukid = (String) tableModel.getValueAt(index, 0);
+		String idrac = (String) tableModel.getValueAt(index, 1);
+		String datum = (String) tableModel.getValueAt(index, 2);
+		String naracun = (String) tableModel.getValueAt(index, 3);
+		tfIdUkidanja.setText(idukid);
+		tfIdRacuna.setText(idrac);
+		tfDatumUkidanja.setText(datum);
+		tfNaRacun.setText(naracun);
 	}
-
+	
 	@Override
 	public void addRow() {
-		String sifra = tfSifra.getText().trim();
-		String naziv = tfNaziv.getText().trim();
+		String idukid= tfIdUkidanja.getText().trim();
+		String idrac = tfIdRacuna.getText().trim();
+		String datum= tfDatumUkidanja.getText().trim();
+		String naracun = tfNaRacun.getText().trim();
 		try {
-			DrzaveTableModel dtm = (DrzaveTableModel) tblGrid.getModel();
-			int index = dtm.insertRow(sifra, naziv);
+			UkidanjeTableModel utm = (UkidanjeTableModel) tblGrid.getModel();
+			int index = utm.insertRow(idukid, idrac, datum, naracun);
 			tblGrid.setRowSelectionInterval(index, index);
 		} catch (SQLException ex) {
 			JOptionPane.showMessageDialog(this, ex.getMessage(), "Greska",
 					JOptionPane.ERROR_MESSAGE);
 		}
 	}
-
+	
 	@Override
 	public void editRow() {
-		String sifra = tfSifra.getText().trim();
-		String naziv = tfNaziv.getText().trim();
+		String idukid= tfIdUkidanja.getText().trim();
+		String idrac = tfIdRacuna.getText().trim();
+		String datum= tfDatumUkidanja.getText().trim();
+		String naracun = tfNaRacun.getText().trim();
 		int index = tblGrid.getSelectedRow();
 		String staraSifra = (String) tblGrid.getValueAt(index, 0); 
 		try {
-			DrzaveTableModel dtm = (DrzaveTableModel) tblGrid.getModel();
-			dtm.updateRow(index, sifra, naziv, staraSifra);
+			UkidanjeTableModel utm = (UkidanjeTableModel) tblGrid.getModel();
+			utm.updateRow(index, idukid, idrac, datum, naracun, staraSifra);
 			tblGrid.setRowSelectionInterval(index, index);
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Greska",
 					JOptionPane.ERROR_MESSAGE);
 		}
 	}
-
+	
 	@Override
 	public void search() {
-		String sifra = tfSifra.getText().trim();
-		String naziv = tfNaziv.getText().trim();
-		DrzaveTableModel dtm = (DrzaveTableModel) tblGrid.getModel();
+		String idukid= tfIdUkidanja.getText().trim();
+		String idrac = tfIdRacuna.getText().trim();
+		String datum= tfDatumUkidanja.getText().trim();
+		String naracun = tfNaRacun.getText().trim();
+		UkidanjeTableModel utm = (UkidanjeTableModel) tblGrid.getModel();
 		try {
-			dtm.searchRow(sifra, naziv);
+			utm.searchRow(idukid, idrac, datum, naracun);
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Greska",
 					JOptionPane.ERROR_MESSAGE);
 		}
 	}
-
+	
 	@Override
 	public void removeRow() {
 		int index = tblGrid.getSelectedRow();
-		DrzaveTableModel tableModel = (DrzaveTableModel) tblGrid.getModel();
+		UkidanjeTableModel tableModel = (UkidanjeTableModel) tblGrid.getModel();
 		if (index == -1) // Ako nema selektovanog reda (tabela prazna)
 			return; // izlazak
 		if (JOptionPane.showConfirmDialog(this, "Da li ste sigurni?",
@@ -141,8 +157,8 @@ public class DrzavaForm extends AbstractForm {
 		if (index == tableModel.getRowCount() - 1)
 			newIndex--;
 		try {
-			DrzaveTableModel dtm = (DrzaveTableModel) tblGrid.getModel();
-			dtm.deleteRow(index);
+			UkidanjeTableModel utm = (UkidanjeTableModel) tblGrid.getModel();
+			utm.deleteRow(index);
 			if (tableModel.getRowCount() > 0)
 				tblGrid.setRowSelectionInterval(newIndex, newIndex);
 		} catch (SQLException ex) {
@@ -150,44 +166,7 @@ public class DrzavaForm extends AbstractForm {
 					JOptionPane.ERROR_MESSAGE);
 		}
 	}
-
-	public JTextField getTfSifra() {
-		return tfSifra;
-	}
-
-	public void setTfSifra(JTextField tfSifra) {
-		this.tfSifra = tfSifra;
-	}
-
-	public JTextField getTfNaziv() {
-		return tfNaziv;
-	}
-
-	public void setTfNaziv(JTextField tfNaziv) {
-		this.tfNaziv = tfNaziv;
-	}
 	
-	public void pickup() {
-		 int index = tblGrid.getSelectedRow();
-		 String sifraDrzave = (String)tblGrid.getModel().getValueAt(index, 0);
-		 list = new ColumnList();
-		 list.add(new Column("DR_SIFRA",sifraDrzave));
-		 this.setVisible(false);
-	}
 	
-	public void nextForm() {
-		int index = tblGrid.getSelectedRow();
-		String sifraDrzave = (String)tblGrid.getModel().getValueAt(index, 0);
-		NaseljenoMestoForm form = new NaseljenoMestoForm();
-		NaseljenoMestoTableModel nmtm = (NaseljenoMestoTableModel) form.getTblGrid().getModel();
-		try {
-			nmtm.openAsChildForm("SELECT nm_sifra, dr_sifra, nm_naziv, nm_pttoznaka FROM naseljeno_mesto WHERE naseljeno_mesto.dr_sifra LIKE '%"
-					+sifraDrzave+ "%'");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		form.setVisible(true);
-	}
-		
+	
 }

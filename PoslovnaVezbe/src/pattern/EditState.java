@@ -1,6 +1,12 @@
 package pattern;
 
 import gui.standard.form.KlijentForm;
+import gui.standard.form.KursnaListaForm;
+import gui.standard.form.MedjubankarskiNalogForm;
+import gui.standard.form.NaseljenoMestoForm;
+import gui.standard.form.PravnoLiceForm;
+import gui.standard.form.RacuniPravnihLicaForm;
+import gui.standard.form.ValuteForm;
 
 import javax.swing.JDialog;
 
@@ -49,6 +55,30 @@ public class EditState implements State {
 		if (form instanceof KursuValutiForm) {
 			KursuValutiForm kvf = (KursuValutiForm) form;
 			kvf.getContext().setState(this);
+		}		
+		if (form instanceof KursnaListaForm) {
+			KursnaListaForm klf = (KursnaListaForm) form;
+			klf.getContext().setState(this);
+		}
+		if (form instanceof MedjubankarskiNalogForm) {
+			MedjubankarskiNalogForm mnf = (MedjubankarskiNalogForm) form;
+			mnf.getContext().setState(this);
+		}
+		if (form instanceof NaseljenoMestoForm) {
+			NaseljenoMestoForm nmf = (NaseljenoMestoForm) form;
+			nmf.getContext().setState(this);
+		}
+		if (form instanceof PravnoLiceForm) {
+			PravnoLiceForm plf = (PravnoLiceForm) form;
+			plf.getContext().setState(this);
+		}
+		if (form instanceof RacuniPravnihLicaForm) {
+			RacuniPravnihLicaForm rplf = (RacuniPravnihLicaForm) form;
+			rplf.getContext().setState(this);
+		}
+		if (form instanceof ValuteForm) {
+			ValuteForm vf = (ValuteForm) form;
+			vf.getContext().setState(this);
 		}
 	}
 

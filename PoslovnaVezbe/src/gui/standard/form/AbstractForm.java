@@ -36,7 +36,7 @@ import actions.standard.form.SearchAction;
 public class AbstractForm extends JDialog{
 	private static final long serialVersionUID = 1L;
 	
-	private JToolBar toolBar;
+	protected JToolBar toolBar;
 	private JButton btnAdd, btnCommit, btnDelete, btnFirst, btnLast, btnHelp, btnNext, btnNextForm,
 	btnPickup, btnRefresh, btnRollback, btnSearch, btnPrevious;
 	protected JTable tblGrid = new JTable();

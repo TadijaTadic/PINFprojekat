@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JCheckBox;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -12,74 +13,55 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import model.BankeTableModel;
-import model.DrzaveTableModel;
-import model.KursnaListaTableModel;
-import model.NaseljenoMestoTableModel;
-import util.Column;
-import util.ColumnList;
+import model.RacuniPravnihLicaTableModel;
 
-public class BankaForm extends AbstractForm {
-	
+public class RacuniPravnihLicaForm extends AbstractForm {
+	private JTextField tfIdRacuna = new JTextField(5);
 	private JTextField tfIdBanke = new JTextField(5);
-	private JTextField tfSifraBanke = new JTextField(5);
-	private JTextField tfPIB = new JTextField(20);
-	private JTextField tfNazivBanke = new JTextField(20);
-	private JTextField tfAdresaBanke = new JTextField(20);
-	private JTextField tfEmailBanke = new JTextField(20);
-	private JTextField tfWebSajtBanke = new JTextField(20);
-	private JTextField tfTelefonBanke = new JTextField(20);
-	private JTextField tfFaxBanke = new JTextField(20);
-	private JCheckBox cbBanka = new JCheckBox();
-	public Object[] collectionOfFields = { tfIdBanke, tfSifraBanke, tfPIB, tfNazivBanke,
-			tfAdresaBanke, tfEmailBanke, tfWebSajtBanke, tfTelefonBanke, tfFaxBanke, cbBanka};
+	private JTextField tfIdValute = new JTextField(20);
+	private JTextField tfIdKlijenta = new JTextField(20);
+	private JTextField tfBrRacun = new JTextField(20);
+	private JTextField tfDatum = new JTextField(20);
+	private JCheckBox cbVazi = new JCheckBox();
+	public Object[] collectionOfFields = { tfIdRacuna, tfIdBanke, tfIdValute,tfIdKlijenta,
+			tfBrRacun, tfDatum, cbVazi };
 	
-	
-	
-	public BankaForm() {
+	public RacuniPravnihLicaForm() {
 		super();
-		setTitle("Banke");
+		setTitle("Racuni");
+		JLabel lblIdRacuna = new JLabel("Id racuna:");
 		JLabel lblIdBanke = new JLabel("Id banke:");
-		JLabel lblSifraBanke = new JLabel("Sifra banke:");
-		JLabel lblPIB = new JLabel("PIB:");
-		JLabel lblNazivBanke = new JLabel("Naziv banke:");
-		JLabel lblAdresaBanke = new JLabel("Adresa banke:");
-		JLabel lblEmailBanke = new JLabel("Email banke:");
-		JLabel lblWebSajtBanke = new JLabel("Sajt banke:");
-		JLabel lblTelefonBanke = new JLabel("Telefon banke:");
-		JLabel lblFaxBanke = new JLabel("Fax banke:");
-		JLabel lblBanka = new JLabel("Banka:");
+		JLabel lblIdValute = new JLabel("Id valute:");
+		JLabel lblIdKlijenta = new JLabel("Id klijenta:");
+		JLabel lblBrRacun = new JLabel("Broj racuna:");
+		JLabel lblDatum = new JLabel("Datum otvaranja racuna:");
+		JLabel lblVazi = new JLabel("Da li vazi:");
 		
+		dataPanel.add(lblIdRacuna);
+		dataPanel.add(tfIdRacuna, "wrap");
 		dataPanel.add(lblIdBanke);
 		dataPanel.add(tfIdBanke, "wrap");
-		dataPanel.add(lblSifraBanke);
-		dataPanel.add(tfSifraBanke, "wrap");
-		dataPanel.add(lblPIB);
-		dataPanel.add(tfPIB, "wrap");
-		dataPanel.add(lblNazivBanke);
-		dataPanel.add(tfNazivBanke, "wrap");
-		dataPanel.add(lblAdresaBanke);
-		dataPanel.add(tfAdresaBanke, "wrap");
-		dataPanel.add(lblEmailBanke);
-		dataPanel.add(tfEmailBanke, "wrap");
-		dataPanel.add(lblWebSajtBanke);
-		dataPanel.add(tfWebSajtBanke, "wrap");
-		dataPanel.add(lblTelefonBanke);
-		dataPanel.add(tfTelefonBanke, "wrap");
-		dataPanel.add(lblFaxBanke);
-		dataPanel.add(tfFaxBanke, "wrap");
-		dataPanel.add(lblBanka);
-		dataPanel.add(cbBanka, "wrap");
+		dataPanel.add(lblIdValute);
+		dataPanel.add(tfIdValute, "wrap");
+		dataPanel.add(lblIdKlijenta);
+		dataPanel.add(tfIdKlijenta, "wrap");
+		dataPanel.add(lblBrRacun);
+		dataPanel.add(tfBrRacun, "wrap");
+		dataPanel.add(lblDatum);
+		dataPanel.add(tfDatum, "wrap");
+		dataPanel.add(lblVazi);
+		dataPanel.add(cbVazi, "wrap");
 		bottomPanel.add(dataPanel);
-	}
-
+		
+}
+	
 	@Override
 	protected void initTable() {
 		JScrollPane scrollPane = new JScrollPane(tblGrid);
 		add(scrollPane, "grow, wrap");
-		BankeTableModel tableModel = new BankeTableModel(new String[] {
-				"Id banke", "Sifra banke", "PIB", "Naziv banke", "Adresa banke", "Email banke", 
-				"Sajt banke", "Telefon banke", "Fax banke", "Banka" }, 0);
+		RacuniPravnihLicaTableModel tableModel = new RacuniPravnihLicaTableModel(new String[] {
+				"Id racuna", "Id banke", "Id valute", "ID klijenta", "Broj racuna", "Datum otvaranja racuna", 
+				"Da li vazi:" }, 0);
 		tblGrid.setModel(tableModel);
 
 		try {
@@ -105,7 +87,7 @@ public class BankaForm extends AbstractForm {
 					}
 				});
 	}
-
+	
 	@Override
 	public void sync() {
 		int index = tblGrid.getSelectedRow();
@@ -119,7 +101,7 @@ public class BankaForm extends AbstractForm {
 			
 			return;
 		}
-		BankeTableModel tableModel =  (BankeTableModel) tblGrid.getModel();
+		RacuniPravnihLicaTableModel tableModel =  (RacuniPravnihLicaTableModel) tblGrid.getModel();
 		int size = tableModel.getColumnCount();
 		for (int i=0; i<size; i++) {
 			if (collectionOfFields[i] instanceof JTextField)
@@ -143,7 +125,8 @@ public class BankaForm extends AbstractForm {
 			}
 		}
 	}
-
+	
+	
 	@Override
 	public void addRow() {
 		ArrayList<String> values = new ArrayList<String>();
@@ -158,15 +141,16 @@ public class BankaForm extends AbstractForm {
 			
 		}
 		try {
-			BankeTableModel btm = (BankeTableModel) tblGrid.getModel();
-			int index = btm.insertRow(values, tfIdBanke.getText().trim());
+			RacuniPravnihLicaTableModel rpltm = (RacuniPravnihLicaTableModel) tblGrid.getModel();
+			int index = rpltm.insertRow(values, tfIdRacuna.getText().trim());
 			tblGrid.setRowSelectionInterval(index, index);
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Greska",
 					JOptionPane.ERROR_MESSAGE);
 		}
 	}
-
+	
+	
 	@Override
 	public void editRow() {
 		ArrayList<String> values = new ArrayList<String>();
@@ -183,23 +167,20 @@ public class BankaForm extends AbstractForm {
 		int index = tblGrid.getSelectedRow();
 		String staraSifra = (String) tblGrid.getValueAt(index, 0); 
 		try {
-			BankeTableModel btm = (BankeTableModel) tblGrid.getModel();
-			btm.updateRow(index, staraSifra, values);
+			RacuniPravnihLicaTableModel rpltm = (RacuniPravnihLicaTableModel) tblGrid.getModel();
+			rpltm.updateRow(index, staraSifra, values);
 			tblGrid.setRowSelectionInterval(index, index);
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Greska",
 					JOptionPane.ERROR_MESSAGE);
 		}
 	}
-
-	public JTextField getTfIdBanke() {
-		return tfIdBanke;
-	}
-
+	
+	
 	@Override
 	public void removeRow() {
 		int index = tblGrid.getSelectedRow();
-		BankeTableModel tableModel = (BankeTableModel) tblGrid.getModel();
+		RacuniPravnihLicaTableModel tableModel = (RacuniPravnihLicaTableModel) tblGrid.getModel();
 		if (index == -1) // Ako nema selektovanog reda (tabela prazna)
 			return; // izlazak
 		if (JOptionPane.showConfirmDialog(this, "Da li ste sigurni?",
@@ -212,8 +193,8 @@ public class BankaForm extends AbstractForm {
 		if (index == tableModel.getRowCount() - 1)
 			newIndex--;
 		try {
-			BankeTableModel btm = (BankeTableModel) tblGrid.getModel();
-			btm.deleteRow(index);
+			RacuniPravnihLicaTableModel rpltm = (RacuniPravnihLicaTableModel) tblGrid.getModel();
+			rpltm.deleteRow(index);
 			if (tableModel.getRowCount() > 0)
 				tblGrid.setRowSelectionInterval(newIndex, newIndex);
 		} catch (SQLException ex) {
@@ -221,7 +202,7 @@ public class BankaForm extends AbstractForm {
 					JOptionPane.ERROR_MESSAGE);
 		}
 	}
-
+	
 	@Override
 	public void search() {
 		ArrayList<String> values = new ArrayList<String>();
@@ -235,36 +216,18 @@ public class BankaForm extends AbstractForm {
 					values.add("0");
 		}
 
-		BankeTableModel btm = (BankeTableModel) tblGrid.getModel();
+		RacuniPravnihLicaTableModel rpltm = (RacuniPravnihLicaTableModel) tblGrid.getModel();
 		try {
-			btm.searchRow(values);
+			rpltm.searchRow(values);
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Greska",
 					JOptionPane.ERROR_MESSAGE);
 		}
 
 	}
-	
-	public void pickup() {
-		 int index = tblGrid.getSelectedRow();
-		 String idBanke = (String)tblGrid.getModel().getValueAt(index, 0);
-		 list = new ColumnList();
-		 list.add(new Column("ID_BANKE",idBanke));
-		 this.setVisible(false);
-	}
-	
-	public void nextForm() {
-		int index = tblGrid.getSelectedRow();
-		String idBanke = (String)tblGrid.getModel().getValueAt(index, 0);
-		KursnaListaForm form = new KursnaListaForm();
-		KursnaListaTableModel kltm = (KursnaListaTableModel) form.getTblGrid().getModel();
-		try {
-			kltm.openAsChildForm("SELECT id_kursne_liste, id_banke, kl_datum, kl_broj, kl_datpr FROM kursna_lista WHERE kursna_lista.id_banke LIKE '%"
-					+idBanke+ "%'");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		form.setVisible(true);
+
+	public JTextField getIdRacuna() {
+		// TODO Auto-generated method stub
+		return tfIdRacuna;
 	}
 }

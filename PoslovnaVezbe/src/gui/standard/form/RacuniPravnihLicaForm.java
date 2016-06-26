@@ -3,16 +3,21 @@ package gui.standard.form;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import actions.standard.form.ZoomFormAction;
 import model.RacuniPravnihLicaTableModel;
 
 public class RacuniPravnihLicaForm extends AbstractForm {
@@ -23,6 +28,7 @@ public class RacuniPravnihLicaForm extends AbstractForm {
 	private JTextField tfBrRacun = new JTextField(20);
 	private JTextField tfDatum = new JTextField(20);
 	private JCheckBox cbVazi = new JCheckBox();
+	private JButton btnZoom = new JButton("...");
 	public Object[] collectionOfFields = { tfIdRacuna, tfIdBanke, tfIdValute,tfIdKlijenta,
 			tfBrRacun, tfDatum, cbVazi };
 	
@@ -44,7 +50,9 @@ public class RacuniPravnihLicaForm extends AbstractForm {
 		dataPanel.add(lblIdValute);
 		dataPanel.add(tfIdValute, "wrap");
 		dataPanel.add(lblIdKlijenta);
-		dataPanel.add(tfIdKlijenta, "wrap");
+		dataPanel.add(tfIdKlijenta);
+		dataPanel.add(btnZoom, "wrap");
+		btnZoom.setAction(new ZoomFormAction(this));
 		dataPanel.add(lblBrRacun);
 		dataPanel.add(tfBrRacun, "wrap");
 		dataPanel.add(lblDatum);
@@ -229,5 +237,36 @@ public class RacuniPravnihLicaForm extends AbstractForm {
 	public JTextField getIdRacuna() {
 		// TODO Auto-generated method stub
 		return tfIdRacuna;
+	}
+	
+	public void zoomKlijenta() throws SQLException {
+		JPanel al = new JPanel(); 	
+		JRadioButton box = new JRadioButton("Fizičko lice");
+		JRadioButton box1 = new JRadioButton("Pravno lice");
+		ButtonGroup group = new ButtonGroup();
+		group.add(box);
+		group.add(box1);
+		al.add(box);
+		al.add(box1);
+		String res =" ";
+		if (JOptionPane.showConfirmDialog(this, al, "Preuzmi klijenta", JOptionPane.YES_NO_OPTION) 
+				== JOptionPane.YES_OPTION && box.isSelected()) {
+			res = "fl";
+		} else if (box1.isSelected()) {
+			res = "pl";
+		}
+		if(res.equals("fl")) {
+			FizickoLiceForm flf = new FizickoLiceForm();
+			flf.setLocation(500,140);
+			flf.setModal(true);
+			flf.setVisible(true);
+			tfIdKlijenta.setText((String)flf.getList().getValue("ID_KLIJENTA"));
+		}else if(res.equals("pl")) {
+			PravnoLiceForm plf = new PravnoLiceForm();
+			plf.setLocation(500,140);
+			plf.setModal(true);
+			plf.setVisible(true);
+			tfIdKlijenta.setText((String)plf.getList().getValue("ID_KLIJENTA"));
+		}
 	}
 }

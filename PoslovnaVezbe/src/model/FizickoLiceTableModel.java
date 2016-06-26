@@ -15,9 +15,8 @@ import database.DBConnection;
 public class FizickoLiceTableModel extends DefaultTableModel {
 
 	private static final long serialVersionUID = 1L;
-	private String basicQuery = "SELECT jmbg, ime, prezime, klijent.id_klijenta, klijent.adresa, klijent.e_mail, klijent.telefon "
-			+ "FROM fizicko_lice JOIN klijent on fizicko_lice.id_klijenta=klijent.id_klijenta";
-	private String orderBy = " ORDER BY JMBG";
+	private String basicQuery = "SELECT * FROM fizicko_lice";
+	private String orderBy = " ORDER BY id_klijenta";
 	private String whereStmt = "";
 	public FizickoLiceTableModel(Object[] colNames, int rowCount) {
 		super(colNames, rowCount);
@@ -43,8 +42,7 @@ public class FizickoLiceTableModel extends DefaultTableModel {
 				String EMAIL = rset.getString("E_MAIL");
 				String TELEFON = rset.getString("TELEFON");
 				
-				addRow(new Object[] { JMBG, IME, PREZIME, ID_KLIJENTA, ADRESA,
-						EMAIL, TELEFON });
+				addRow(new Object[] { ID_KLIJENTA, JMBG, ADRESA, TELEFON , EMAIL, PREZIME, IME });
 			}
 			rset.close();
 			stmt.close();
@@ -65,15 +63,18 @@ public class FizickoLiceTableModel extends DefaultTableModel {
 			String preparedString = "";
 			for (int i = 1; i <= columnCount-1; i++ ) {
 			  String name = rsmd.getColumnName(i);
+			  System.out.print(name+ "  ");
 			  preparedString += name + "=?, " ;
 			}
 			String lastName = rsmd.getColumnName(columnCount);
+			System.out.print(lastName+ "\n");
 			preparedString += lastName + "=?" ;
 			stmt1.close();
 			
 			PreparedStatement stmt2 = DBConnection.getConnection().prepareStatement(
-					"UPDATE fizicko_lice SET " + preparedString + " WHERE JMBG=?");
+					"UPDATE fizicko_lice SET " + preparedString + " WHERE ID_KLIJENTA=?");
 			for (int i = 1; i <= values.size(); i++) {
+				System.out.print(values.get(i-1)+ "  ");
 				stmt2.setString(i, values.get(i-1));
 			}
 			stmt2.setString(values.size() + 1, staraSifra);
@@ -147,7 +148,7 @@ public class FizickoLiceTableModel extends DefaultTableModel {
 		
 		public void deleteRow(int index) throws SQLException {
 			PreparedStatement stmt = DBConnection.getConnection().prepareStatement(
-					"DELETE FROM fizicko_lice WHERE jmbg=?");
+					"DELETE FROM fizicko_lice WHERE ID_KLIJENTA=?");
 			String sifra = (String) getValueAt(index, 0);
 			stmt.setString(1, sifra);
 			// Brisanje iz baze

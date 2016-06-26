@@ -16,9 +16,12 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import actions.standard.form.ZoomFormAction;
+import util.Column;
+import util.ColumnList;
 import util.Lookup;
 import model.BankeTableModel;
 import model.FizickoLiceTableModel;
+import model.RacuniPravnihLicaTableModel;
 
 public class FizickoLiceForm extends AbstractForm {
 	
@@ -30,8 +33,7 @@ public class FizickoLiceForm extends AbstractForm {
 	private JTextField tfEmail = new JTextField(20);
 	private JTextField tfTelefon = new JTextField(20);
 	private JButton btnZoom = new JButton("...");
-	public Object[] collectionOfFields = {  tfJMBG, tfIme, tfPrezime, tfIdKlijenta, 
-			tfAdresa, tfEmail, tfTelefon};
+	public Object[] collectionOfFields = {  tfIdKlijenta, tfJMBG, tfAdresa, tfTelefon, tfEmail, tfPrezime, tfIme};
 	
 	public FizickoLiceForm() {
 		super();
@@ -45,28 +47,28 @@ public class FizickoLiceForm extends AbstractForm {
 		JLabel lblTelefon = new JLabel("Telefon:");
 		
 		
-		dataPanel.add(lblJMBG);
-		dataPanel.add(tfJMBG, "wrap");
-		dataPanel.add(lblIme);
-		dataPanel.add(tfIme, "wrap");
-		dataPanel.add(lblPrezime);
-		dataPanel.add(tfPrezime, "wrap, span 3");		
 		dataPanel.add(lblIdKlijenta);
 		dataPanel.add(tfIdKlijenta);
-		dataPanel.add(btnZoom ,"wrap, span 3");
-		btnZoom.setAction(new ZoomFormAction(this));
+		dataPanel.add(btnZoom ,"wrap");
+		//btnZoom.setAction(new ZoomFormAction(this));
+		dataPanel.add(lblJMBG);
+		dataPanel.add(tfJMBG, "wrap");
 		dataPanel.add(lblAdresa);
 		dataPanel.add(tfAdresa, "wrap");
-		tfAdresa.setEditable(false);
+		//tfAdresa.setEditable(false);
 		dataPanel.add(lblEmail);
 		dataPanel.add(tfEmail, "wrap");
-		tfEmail.setEditable(false);
+		//tfEmail.setEditable(false);
 		dataPanel.add(lblTelefon);
-		dataPanel.add(tfTelefon);
-		tfTelefon.setEditable(false);
+		dataPanel.add(tfTelefon, "wrap");
+		//tfTelefon.setEditable(false);		
+		dataPanel.add(lblPrezime);
+		dataPanel.add(tfPrezime, "wrap");			
+		dataPanel.add(lblIme);
+		dataPanel.add(tfIme);
 		bottomPanel.add(dataPanel);
 		
-		tfIdKlijenta.addFocusListener(new FocusAdapter() {
+		/*tfIdKlijenta.addFocusListener(new FocusAdapter() {
 			public void focusLost(FocusEvent e) {
 				String sifraDrzave = tfIdKlijenta.getText().trim();
 				try {
@@ -78,7 +80,7 @@ public class FizickoLiceForm extends AbstractForm {
 					e1.printStackTrace();
 				}
 			}
-		});
+		});*/
 	}
 	
 	@Override
@@ -86,7 +88,7 @@ public class FizickoLiceForm extends AbstractForm {
 		JScrollPane scrollPane = new JScrollPane(tblGrid);
 		add(scrollPane, "grow, wrap");
 		FizickoLiceTableModel tableModel = new FizickoLiceTableModel(new String[] {
-				 "JMBG", "Ime", "Prezime","Id Klijenta", "Adresa", "Email", "Telefon" }, 0);
+				"Id Klijenta", "JMBG", "Adresa", "Telefon", "Email" , "Prezime", "Ime" }, 0);
 		tblGrid.setModel(tableModel);
 
 		try {
@@ -207,7 +209,7 @@ public class FizickoLiceForm extends AbstractForm {
 		return tfJMBG;
 	}
 	
-	public void zoom() {
+	/*public void zoom() {
 		KlijentForm kf = new KlijentForm();
 		kf.setLocation(500,140);
 		kf.setModal(true);
@@ -216,6 +218,29 @@ public class FizickoLiceForm extends AbstractForm {
 		tfAdresa.setText((String)kf.getList().getValue("ADRESA"));
 		tfEmail.setText((String)kf.getList().getValue("E_MAIL"));
 		tfTelefon.setText((String)kf.getList().getValue("TELEFON"));
+	}*/
+	
+	public void pickup() {
+		 int index = tblGrid.getSelectedRow();
+		 String idKlijenta = (String)tblGrid.getModel().getValueAt(index, 0);
+		 list = new ColumnList();
+		 list.add(new Column("ID_KLIJENTA",idKlijenta));
+		 this.setVisible(false);
+	}
+	
+	public void nextForm() {
+		int index = tblGrid.getSelectedRow();
+		String idKlijenta = (String)tblGrid.getModel().getValueAt(index, 0);
+	    //String naziv = (String)tblGrid.getModel().getValueAt(index, 1);
+		RacuniPravnihLicaForm form = new RacuniPravnihLicaForm();
+		RacuniPravnihLicaTableModel rpltm = (RacuniPravnihLicaTableModel) form.getTblGrid().getModel();
+		try {
+			rpltm.openAsChildForm("SELECT * FROM racuni_pravnih_lica WHERE id_klijenta LIKE '%"+idKlijenta+"%'");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		form.setVisible(true);
 	}
 
 }

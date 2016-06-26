@@ -176,4 +176,8 @@ public class RacuniPravnihLicaTableModel extends DefaultTableModel {
 		String sqlQuery = "SELECT * FROM racuni_pravnih_lica WHERE "+preparedString;
 		fillData(sqlQuery);				
 	}
+	
+	public void openAsChildForm(String sql) throws SQLException{
+		fillData(sql);
+	}
 }

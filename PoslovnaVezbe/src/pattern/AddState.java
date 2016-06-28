@@ -3,10 +3,13 @@ package pattern;
 import javax.swing.JCheckBox;
 import javax.swing.JTextField;
 
+import org.jdatepicker.impl.JDatePickerImpl;
+
 import gui.standard.form.FizickoLiceForm;
 import gui.standard.form.KlijentForm;
 import gui.standard.form.KursnaListaForm;
 import gui.standard.form.MedjubankarskiNalogForm;
+import gui.standard.form.NalogZaUplatuForm;
 import gui.standard.form.NaseljenoMestoForm;
 import gui.standard.form.PravnoLiceForm;
 import gui.standard.form.AbstractForm;
@@ -140,7 +143,19 @@ public class AddState implements State {
 				else if (field instanceof JCheckBox)
 					((JCheckBox) field).setSelected(false);
 			}
-			
+		}
+		if (form instanceof NalogZaUplatuForm) {
+			NalogZaUplatuForm nzuf = (NalogZaUplatuForm) form;
+			nzuf.getContext().setState(this);
+			nzuf.getTfBrStavke().requestFocus();
+			for (Object field : nzuf.collectionOfFields) {
+				if (field instanceof JTextField)
+					((JTextField) field).setText("");
+				else if (field instanceof JCheckBox)
+					((JCheckBox) field).setSelected(false);
+				else if (field instanceof JDatePickerImpl)
+					((JDatePickerImpl) field).getJFormattedTextField().setText("");
+			}
 		}
 	}
 

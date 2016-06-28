@@ -3,6 +3,7 @@ package pattern;
 import gui.standard.form.KlijentForm;
 import gui.standard.form.KursnaListaForm;
 import gui.standard.form.MedjubankarskiNalogForm;
+import gui.standard.form.NalogZaUplatuForm;
 import gui.standard.form.NaseljenoMestoForm;
 import gui.standard.form.PravnoLiceForm;
 import gui.standard.form.RacuniPravnihLicaForm;
@@ -79,6 +80,10 @@ public class EditState implements State {
 		if (form instanceof ValuteForm) {
 			ValuteForm vf = (ValuteForm) form;
 			vf.getContext().setState(this);
+		}
+		if (form instanceof NalogZaUplatuForm) {
+			NalogZaUplatuForm nzuf = (NalogZaUplatuForm) form;
+			nzuf.getContext().setState(this);
 		}
 	}
 

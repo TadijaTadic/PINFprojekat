@@ -117,6 +117,25 @@ public class RacuniPravnihLicaTableModel extends DefaultTableModel {
 		}
 		int rowsAffected = stmt2.executeUpdate();
 		stmt2.close();
+		String brizv = null;
+		Statement stmt4 = DBConnection.getConnection().createStatement();
+		ResultSet rset = stmt4.executeQuery("select dsr_izvod from DNEVNO_STANJE_RACUNA where dsr_izvod=(select max(dsr_izvod) from DNEVNO_STANJE_RACUNA)");
+		if(rset.next()) {
+			brizv = rset.getString(1);
+		}
+		int a = Integer.parseInt(brizv);
+		a++;
+		String rbr = Integer.toString(a);
+		System.out.print(rbr);
+		PreparedStatement stmt3 = DBConnection.getConnection().prepareStatement(
+				"INSERT INTO dnevno_stanje_racuna (dsr_izvod, id_racuna, dsr_datum, dsr_prethodno, "
+				+ "dsr_ukorist, dsr_nateret, dsr_novostanje) VALUES (?, ?, ?, '0', '0', '0', '0')");			
+		stmt3.setString(1, rbr);
+		stmt3.setString(2, id);
+		stmt3.setString(3, values.get(5));
+		int bl = stmt3.executeUpdate();
+		System.out.print(bl);
+		stmt3.close();
 		DBConnection.getConnection().commit();
 		if (rowsAffected > 0) {
 			// i unos u TableModel

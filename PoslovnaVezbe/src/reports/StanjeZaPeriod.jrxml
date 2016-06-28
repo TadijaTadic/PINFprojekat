@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="StanjeZaPeriod" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="474b9b7c-00d7-463e-81af-b9adb64fac86">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="8"/>
+	<parameter name="od" class="java.lang.String"/>
+	<parameter name="do" class="java.lang.String"/>
+	<parameter name="idracuna" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     ANALITIKA_IZVODA."ASI_DUZNIK" AS ANALITIKA_IZVODA_ASI_DUZNIK,
+     ANALITIKA_IZVODA."ASI_RACDUZ" AS ANALITIKA_IZVODA_ASI_RACDUZ,
+     ANALITIKA_IZVODA."ASI_RACPOV" AS ANALITIKA_IZVODA_ASI_RACPOV,
+     ANALITIKA_IZVODA."ASI_POVERILAC" AS ANALITIKA_IZVODA_ASI_POVERILAC,
+     ANALITIKA_IZVODA."ASI_IZNOS" AS ANALITIKA_IZVODA_ASI_IZNOS
+FROM
+     "dbo"."ANALITIKA_IZVODA" ANALITIKA_IZVODA]]>
+	</queryString>
+	<field name="ANALITIKA_IZVODA_ASI_DUZNIK" class="java.lang.String"/>
+	<field name="ANALITIKA_IZVODA_ASI_RACDUZ" class="java.lang.String"/>
+	<field name="ANALITIKA_IZVODA_ASI_RACPOV" class="java.lang.String"/>
+	<field name="ANALITIKA_IZVODA_ASI_POVERILAC" class="java.lang.String"/>
+	<field name="ANALITIKA_IZVODA_ASI_IZNOS" class="java.math.BigDecimal"/>
+	<pageHeader>
+		<band height="102" splitType="Stretch">
+			<staticText>
+				<reportElement x="185" y="34" width="184" height="35" uuid="18b93046-2a37-4a32-b575-177c9d036f3f"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Stanje za period]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="39" height="20" uuid="f268f14e-850a-4bf7-99af-b6719ff24a06"/>
+				<text><![CDATA[Datum:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="433" y="0" width="36" height="20" uuid="67f255c7-3241-4a06-940a-5509b6985474"/>
+				<text><![CDATA[Strana:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="39" y="0" width="100" height="20" uuid="685891b3-eb7e-4b06-93c1-763eb9a66c1e"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="469" y="0" width="86" height="20" uuid="77481dd3-9ccb-427b-ac05-afbea4764d7c"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="82" width="39" height="20" uuid="34e505ca-ea72-44ff-8656-ea883a2f6f75"/>
+				<text><![CDATA[Dužnik]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="86" y="82" width="80" height="20" uuid="03e41f54-0568-4f4e-a6c5-0a2c53f42c6c"/>
+				<text><![CDATA[Račun dužnika]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="210" y="82" width="50" height="20" uuid="e7dafd23-b3d1-4e04-bcba-5548edc93ba2"/>
+				<text><![CDATA[Primalac]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="308" y="82" width="86" height="20" uuid="12e32708-1821-4f93-8bb6-1ed3a7937557"/>
+				<text><![CDATA[Račun primaoca]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="435" y="82" width="34" height="20" uuid="32921d63-1097-4458-ab8d-7ba55255cde0"/>
+				<text><![CDATA[Iznos]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="175" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="56" height="20" uuid="b1851acb-131a-464c-9407-4be4e72db4f8"/>
+				<textFieldExpression><![CDATA[$F{ANALITIKA_IZVODA_ASI_DUZNIK}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="86" y="0" width="80" height="20" uuid="ccb58c02-2543-4ca8-a571-1bf26b3131ed"/>
+				<textFieldExpression><![CDATA[$F{ANALITIKA_IZVODA_ASI_RACDUZ}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="210" y="0" width="61" height="20" uuid="e19ea74a-b3dc-4c0b-971e-3c492e1a4c59"/>
+				<textFieldExpression><![CDATA[$F{ANALITIKA_IZVODA_ASI_POVERILAC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="308" y="0" width="86" height="20" uuid="ce21ad34-85d0-4aa0-b80b-6e1126088947"/>
+				<textFieldExpression><![CDATA[$F{ANALITIKA_IZVODA_ASI_RACPOV}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="435" y="0" width="46" height="20" uuid="13635230-d387-45e6-88f3-5ecf7ae8395a"/>
+				<textFieldExpression><![CDATA[$F{ANALITIKA_IZVODA_ASI_IZNOS}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="61" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>

@@ -15,9 +15,9 @@ import database.DBConnection;
 public class DnevnoStanjeTableModel extends DefaultTableModel {
 
 	private static final long serialVersionUID = 1L;
-	private String basicQuery = "SELECT dsr_izvod, racuni_pravnih_lica.id_racuna, dsr_datum, dsr_prethodno, dsr_ukorist, dsr_nateret, dsr_novostanje"
-			+ " FROM dnevno_stanje_racuna JOIN racuni_pravnih_lica on dnevno_stanje_racuna.id_racuna=racuni_pravnih_lica.id_racuna";
-	private String orderBy = " ORDER BY dsr_izvod";
+	private String basicQuery = "SELECT asi_duznik, asi_racduz, asi_poverilac, asi_racpov, "
+					+ "asi_iznos FROM analitika_izvoda";
+	private String orderBy = "";
 	private String whereStmt = "";
 	public DnevnoStanjeTableModel(Object[] colNames, int rowCount) {
 		super(colNames, rowCount);
@@ -35,16 +35,15 @@ public class DnevnoStanjeTableModel extends DefaultTableModel {
 			Statement stmt = DBConnection.getConnection().createStatement();
 			ResultSet rset = stmt.executeQuery(sql);
 			while (rset.next()) {
-				String ID_KLIJENTA = rset.getString("ID_KLIJENTA");
-				String JMBG = rset.getString("JMBG");
-				String IME = rset.getString("IME");
-				String PREZIME = rset.getString("PREZIME");
-				String ADRESA = rset.getString("ADRESA");
-				String EMAIL = rset.getString("E_MAIL");
-				String TELEFON = rset.getString("TELEFON");
+				String ASI_DUZNIK = rset.getString("ASI_DUZNIK");
+				String ASI_RACDUZ = rset.getString("ASI_RACDUZ");
+				String ASI_PRIMALAC = rset.getString("ASI_POVERILAC");
+				String ASI_RACPRIM = rset.getString("ASI_RACPOV");
+				String ASI_IZNOS = rset.getString("ASI_IZNOS");
+
 				
-				addRow(new Object[] { JMBG, IME, PREZIME, ID_KLIJENTA, ADRESA,
-						EMAIL, TELEFON });
+				addRow(new Object[] { ASI_DUZNIK, ASI_RACDUZ, ASI_PRIMALAC, 
+						ASI_RACPRIM, ASI_IZNOS });
 			}
 			rset.close();
 			stmt.close();
@@ -56,7 +55,7 @@ public class DnevnoStanjeTableModel extends DefaultTableModel {
 			// all cells false
 			return false;
 		}
-		
+		/*
 		public void updateRow(int index, String staraSifra, ArrayList<String> values) throws SQLException {
 			Statement stmt1 = DBConnection.getConnection().createStatement();
 			ResultSet rs = stmt1.executeQuery(basicQuery);
@@ -175,7 +174,7 @@ public class DnevnoStanjeTableModel extends DefaultTableModel {
 			String sqlQuery = "SELECT * FROM fizicko_lice WHERE "+preparedString;
 			fillData(sqlQuery);				
 		}
-		
+		*/
 		public void openAsChildForm(String sql) throws SQLException{
 			//String sql = "SELECT * FROM naseljeno_mesto JOIN drzava on naseljeno_mesto.dr_sifra = drzava.dr_sifra WHERE naseljeno_mesto.dr_sifra LIKE '%"
 				//	+ where + "%'"; // upotrebiti where parametar

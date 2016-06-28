@@ -3,6 +3,7 @@ package gui.standard.form;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -12,6 +13,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import actions.standard.form.SpisakAction;
 import model.BankeTableModel;
 import model.DrzaveTableModel;
 import model.KursnaListaTableModel;
@@ -31,6 +33,7 @@ public class BankaForm extends AbstractForm {
 	private JTextField tfTelefonBanke = new JTextField(20);
 	private JTextField tfFaxBanke = new JTextField(20);
 	private JCheckBox cbBanka = new JCheckBox();
+	private JButton btnSpisak = new JButton("Spisak računa");
 	public Object[] collectionOfFields = { tfIdBanke, tfSifraBanke, tfPIB, tfNazivBanke,
 			tfAdresaBanke, tfEmailBanke, tfWebSajtBanke, tfTelefonBanke, tfFaxBanke, cbBanka};
 	
@@ -70,6 +73,8 @@ public class BankaForm extends AbstractForm {
 		dataPanel.add(tfFaxBanke, "wrap");
 		dataPanel.add(lblBanka);
 		dataPanel.add(cbBanka, "wrap");
+		dataPanel.add(btnSpisak);
+		btnSpisak.setAction(new SpisakAction(this));
 		bottomPanel.add(dataPanel);
 	}
 
@@ -192,7 +197,7 @@ public class BankaForm extends AbstractForm {
 		}
 	}
 
-	public JTextField getTfIdBanke() {
+	public  JTextField getTfIdBanke() {
 		return tfIdBanke;
 	}
 

@@ -1,6 +1,7 @@
 package actions.standard.form;
 
 import gui.standard.form.AbstractForm;
+import gui.standard.form.NalogZaUplatuForm;
 
 import java.awt.event.ActionEvent;
 

@@ -17,6 +17,7 @@ import actions.main.form.FizickoLiceAction;
 import actions.main.form.KlijentAction;
 import actions.main.form.KursnaListaAction;
 import actions.main.form.MedjubankarskiNalogAction;
+import actions.main.form.NalogZaUplatuAction;
 import actions.main.form.NaseljenoMestoAction;
 import actions.main.form.PravnoLiceAction;
 import actions.main.form.RacuniAction;
@@ -85,6 +86,8 @@ public class MainFrame extends JFrame{
 		orgSemaMenu.add(ukidanjeracunaMI);
 		JMenuItem valuteMI = new JMenuItem(new ValuteAction());
 		orgSemaMenu.add(valuteMI);
+		JMenuItem uplateMI = new JMenuItem(new NalogZaUplatuAction());
+		orgSemaMenu.add(uplateMI);
 		menuBar.add(orgSemaMenu);
 		
 		

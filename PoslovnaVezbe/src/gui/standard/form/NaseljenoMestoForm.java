@@ -11,6 +11,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import util.Column;
+import util.ColumnList;
 import actions.standard.form.ZoomFormAction;
 import model.NaseljenoMestoTableModel;
 
@@ -243,6 +245,16 @@ public class NaseljenoMestoForm extends AbstractForm {
 			
 			drSifra.setText((String)df.getList().getValue("DR_SIFRA"));
 		}
+
+		public void pickup() {
+			 int index = tblGrid.getSelectedRow();
+			 String sifraMesta = (String)tblGrid.getModel().getValueAt(index, 0);
+			 list = new ColumnList();
+			 list.add(new Column("NM_SIFRA", sifraMesta));
+			 this.setVisible(false);
+		}
+		
+		
 	
 
 }

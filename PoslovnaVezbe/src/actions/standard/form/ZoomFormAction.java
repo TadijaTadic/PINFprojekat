@@ -3,6 +3,7 @@ package actions.standard.form;
 import gui.standard.form.AbstractForm;
 import gui.standard.form.FizickoLiceForm;
 import gui.standard.form.KursnaListaForm;
+import gui.standard.form.NalogZaUplatuForm;
 import gui.standard.form.NaseljenoMestoForm;
 import gui.standard.form.RacuniPravnihLicaForm;
 
@@ -42,7 +43,11 @@ public class ZoomFormAction extends AbstractAction {
 		if(form instanceof NaseljenoMestoForm) {
 			((NaseljenoMestoForm) form).zoom();
 		}
-		
+		if (form instanceof NalogZaUplatuForm)
+			if (((NalogZaUplatuForm) form).getBtnZoomBrIzvoda().isFocusOwner())
+				((NalogZaUplatuForm) form).zoomBrIzvodaDnevonogStanja();
+			else if (((NalogZaUplatuForm) form).getBtnZoomSifraMesta().isFocusOwner())
+					((NalogZaUplatuForm) form).zoomSifraMesta();
 	}
 	
 }

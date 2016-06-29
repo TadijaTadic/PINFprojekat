@@ -13,27 +13,32 @@
      RACUNI_PRAVNIH_LICA."BAR_RACUN" AS RACUNI_PRAVNIH_LICA_BAR_RACUN
 FROM
      "dbo"."DNEVNO_STANJE_RACUNA" DNEVNO_STANJE_RACUNA INNER JOIN "dbo"."RACUNI_PRAVNIH_LICA" RACUNI_PRAVNIH_LICA ON DNEVNO_STANJE_RACUNA."ID_RACUNA" = RACUNI_PRAVNIH_LICA."ID_RACUNA"
-WHERE RACUNI_PRAVNIH_LICA."ID_BANKE" = $P{banka} AND DNEVNO_STANJE_RACUNA."DSR_IZVOD"=(SELECT MAX(DNEVNO_STANJE_RACUNA."DSR_IZVOD") FROM
-"dbo"."DNEVNO_STANJE_RACUNA" DNEVNO_STANJE_RACUNA)]]>
+WHERE RACUNI_PRAVNIH_LICA."ID_BANKE" = $P{banka} AND DNEVNO_STANJE_RACUNA."DSR_IZVOD" IN (SELECT
+     max(DSR_IZVOD)
+
+FROM
+    DNEVNO_STANJE_RACUNA INNER JOIN RACUNI_PRAVNIH_LICA ON DNEVNO_STANJE_RACUNA.ID_RACUNA = RACUNI_PRAVNIH_LICA.ID_RACUNA
+WHERE RACUNI_PRAVNIH_LICA."ID_BANKE" = $P{banka}
+GROUP BY RACUNI_PRAVNIH_LICA.ID_RACUNA)]]>
 	</queryString>
-	<field name="RACUNI_PRAVNIH_LICA_ID_KLIJENTA" class="java.lang.Integer"/>
-	<field name="RACUNI_PRAVNIH_LICA_ID_RACUNA" class="java.lang.Long"/>
-	<field name="RACUNI_PRAVNIH_LICA_BAR_RACUN" class="java.lang.String"/>
 	<field name="DNEVNO_STANJE_RACUNA_DSR_NOVOSTANJE" class="java.math.BigDecimal"/>
+	<field name="RACUNI_PRAVNIH_LICA_ID_RACUNA" class="java.lang.Long"/>
+	<field name="RACUNI_PRAVNIH_LICA_ID_KLIJENTA" class="java.lang.Integer"/>
 	<field name="RACUNI_PRAVNIH_LICA_BAR_DATOTV" class="java.sql.Timestamp"/>
+	<field name="RACUNI_PRAVNIH_LICA_BAR_RACUN" class="java.lang.String"/>
 	<pageHeader>
-		<band height="116" splitType="Stretch">
+		<band height="135" splitType="Stretch">
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="100" y="0" width="100" height="20" uuid="db7ce197-1963-4c17-9db3-12a1c1ba8f7f"/>
+				<reportElement x="39" y="0" width="100" height="20" uuid="db7ce197-1963-4c17-9db3-12a1c1ba8f7f"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="355" y="0" width="100" height="20" uuid="19321d89-0755-4216-929c-507fa429b91f"/>
+				<reportElement x="481" y="0" width="40" height="20" uuid="19321d89-0755-4216-929c-507fa429b91f"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[Strana:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="455" y="0" width="100" height="20" uuid="cd405f6d-a626-4bcb-af51-eeeb98d9387d"/>
+				<reportElement x="521" y="0" width="34" height="20" uuid="cd405f6d-a626-4bcb-af51-eeeb98d9387d"/>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -42,11 +47,11 @@ WHERE RACUNI_PRAVNIH_LICA."ID_BANKE" = $P{banka} AND DNEVNO_STANJE_RACUNA."DSR_I
 				<text><![CDATA[Id računa:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="74" y="96" width="60" height="20" uuid="162e8dfe-b294-4409-9ddb-77ce43de97fe"/>
+				<reportElement x="115" y="96" width="60" height="20" uuid="162e8dfe-b294-4409-9ddb-77ce43de97fe"/>
 				<text><![CDATA[Broj računa]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="146" y="96" width="54" height="20" uuid="e8d92fb4-7077-4a84-b261-0e0508e8a88e"/>
+				<reportElement x="234" y="96" width="54" height="20" uuid="e8d92fb4-7077-4a84-b261-0e0508e8a88e"/>
 				<text><![CDATA[Id klijenta:]]></text>
 			</staticText>
 			<staticText>
@@ -57,48 +62,43 @@ WHERE RACUNI_PRAVNIH_LICA."ID_BANKE" = $P{banka} AND DNEVNO_STANJE_RACUNA."DSR_I
 				<text><![CDATA[Računi]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="0" width="100" height="20" uuid="771d4fe6-598a-42a7-b561-a95d0d87d5eb"/>
+				<reportElement x="0" y="0" width="39" height="20" uuid="771d4fe6-598a-42a7-b561-a95d0d87d5eb"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[Datum:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="210" y="96" width="61" height="20" uuid="5bc17118-b295-4a8f-9cfa-50942ed965da"/>
-				<text><![CDATA[Ime klijenta:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="284" y="96" width="81" height="20" uuid="f8dbc922-36be-4883-bd1b-117f08de88be"/>
-				<text><![CDATA[Prezime klijenta:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="381" y="96" width="85" height="20" uuid="bcc881b6-a57c-4ebb-90f3-4df24a4623cc"/>
+				<reportElement x="355" y="96" width="85" height="20" uuid="bcc881b6-a57c-4ebb-90f3-4df24a4623cc"/>
 				<text><![CDATA[Datum otvaranja:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="482" y="96" width="37" height="20" uuid="f6f03b65-eb44-4642-a9c4-f66d8ab47d80"/>
+				<reportElement x="499" y="96" width="37" height="20" uuid="f6f03b65-eb44-4642-a9c4-f66d8ab47d80"/>
 				<text><![CDATA[Stanje:]]></text>
 			</staticText>
+			<line>
+				<reportElement x="0" y="129" width="555" height="1" uuid="8c6b45c1-0aac-4bdc-b4a5-dcd82877e2d3"/>
+			</line>
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="126" splitType="Stretch">
+		<band height="37" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="14" width="64" height="20" uuid="4f5842d3-6c31-4976-b364-432224ab8302"/>
 				<textFieldExpression><![CDATA[$F{RACUNI_PRAVNIH_LICA_ID_RACUNA}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="74" y="14" width="60" height="20" uuid="0899d31d-fb4d-454a-a8cc-fde576c99281"/>
+				<reportElement x="115" y="14" width="60" height="20" uuid="0899d31d-fb4d-454a-a8cc-fde576c99281"/>
 				<textFieldExpression><![CDATA[$F{RACUNI_PRAVNIH_LICA_BAR_RACUN}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="146" y="14" width="54" height="20" uuid="542a22db-9ae3-41a0-bf14-145b9aae2829"/>
+				<reportElement x="234" y="14" width="54" height="20" uuid="542a22db-9ae3-41a0-bf14-145b9aae2829"/>
 				<textFieldExpression><![CDATA[$F{RACUNI_PRAVNIH_LICA_ID_KLIJENTA}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="381" y="14" width="85" height="20" uuid="eabbad0f-1eaa-41d5-93ae-47a44da098cf"/>
+				<reportElement x="355" y="14" width="85" height="20" uuid="eabbad0f-1eaa-41d5-93ae-47a44da098cf"/>
 				<textFieldExpression><![CDATA[$F{RACUNI_PRAVNIH_LICA_BAR_DATOTV}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="482" y="14" width="37" height="20" uuid="9dee2aed-fbd9-40a6-bc9d-160b3c13d43c"/>
+				<reportElement x="499" y="14" width="37" height="20" uuid="9dee2aed-fbd9-40a6-bc9d-160b3c13d43c"/>
 				<textFieldExpression><![CDATA[$F{DNEVNO_STANJE_RACUNA_DSR_NOVOSTANJE}]]></textFieldExpression>
 			</textField>
 		</band>

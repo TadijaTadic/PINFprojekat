@@ -15,8 +15,8 @@ public class DnevnoStanjeAction extends AbstractAction {
 
 	
 	public DnevnoStanjeAction(RacuniPravnihLicaForm form) {
-		putValue(SHORT_DESCRIPTION, "Dnevno stanje");
-		putValue(NAME, "Dnevno stanje");
+		putValue(SHORT_DESCRIPTION, "Dnevno izvod");
+		putValue(NAME, "Dnevni izvod");
 		this.form = form;
 	}
 

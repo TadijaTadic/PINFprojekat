@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.swing.Action;
 import javax.swing.ButtonGroup;
@@ -24,13 +25,19 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
+
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 import database.DBConnection;
 import util.Column;
 import util.ColumnList;
+import util.DateLabelFormatter;
 import actions.standard.form.DnevnoStanjeAction;
+import actions.standard.form.StanjeZaPeriodAction;
 import database.DBConnection;
 import actions.main.form.UkidRacunaAction;
 import actions.standard.form.ZoomFormAction;
@@ -44,11 +51,19 @@ public class RacuniPravnihLicaForm extends AbstractForm {
 	private JTextField tfIdKlijenta = new JTextField(20);
 	private JTextField tfBrRacun = new JTextField(20);
 	private JTextField tfDatum = new JTextField(20);
-	private JTextField tfOd = new JTextField(20);
-	private JTextField tfDo = new JTextField(20);
 	private JCheckBox cbVazi = new JCheckBox();
 	private JButton btnZoom = new JButton("...");
 	private JButton btnDnStanje = new JButton("Dnevno stanje");
+	private JButton btnOd = new JButton("...");
+	private UtilDateModel model = new UtilDateModel();
+	private UtilDateModel model1 = new UtilDateModel();
+	private Properties p = new Properties();
+	private JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
+	private JDatePanelImpl datePanel1 = new JDatePanelImpl(model1, p);
+	private JDatePickerImpl datumOd = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+	private JDatePickerImpl datumDo = new JDatePickerImpl(datePanel1, new DateLabelFormatter());
+	private JButton btnDo = new JButton("...");
+	private JButton btnStZaPer = new JButton("Stanje za period");
 	private JButton btnZoomBanka = new JButton("...");
 	private JButton btnZoomValuta = new JButton("...");
 	private JButton btnUkini = new JButton("Ukini racun");
@@ -67,7 +82,7 @@ public class RacuniPravnihLicaForm extends AbstractForm {
 		JLabel lblDatum = new JLabel("Datum otvaranja racuna:");
 		JLabel lblVazi = new JLabel("Da li vazi:");
 		JLabel lblOd = new JLabel("Od:");
-		JLabel lblDo = new JLabel("Do");
+		JLabel lblDo = new JLabel("Do:");
 		
 		dataPanel.add(lblIdRacuna);
 		dataPanel.add(tfIdRacuna, "wrap");
@@ -93,6 +108,12 @@ public class RacuniPravnihLicaForm extends AbstractForm {
 		dataPanel.add(cbVazi, "wrap");
 		dataPanel.add(btnDnStanje, "wrap");
 		btnDnStanje.setAction(new DnevnoStanjeAction(this));
+		dataPanel.add(lblOd);
+		dataPanel.add(datumOd, "wrap");
+		dataPanel.add(lblDo);
+		dataPanel.add(datumDo, "wrap");
+		dataPanel.add(btnStZaPer, "wrap");
+		btnStZaPer.setAction(new StanjeZaPeriodAction(this));
 		bottomPanel.add(dataPanel);
 		
 }
@@ -331,6 +352,8 @@ public class RacuniPravnihLicaForm extends AbstractForm {
 			rpltm.openAsChildForm("SELECT asi_duznik, asi_racduz, asi_poverilac, asi_racpov, "
 					+ "asi_iznos FROM analitika_izvoda WHERE CONVERT(VARCHAR(25), asi_datpri, 126) LIKE '%"+datum+"%' AND (asi_racduz='"+idRacuna+"' "
 					+ "OR asi_racpov='"+idRacuna+"')");
+			form.fillBal("SELECT dsr_prethodno, dsr_ukorist, dsr_nateret, dsr_novostanje FROM dnevno_stanje_racuna "
+					+ "WHERE CONVERT(VARCHAR(25), dsr_datum, 126) LIKE '%"+datum+"%' AND id_racuna='"+idRacuna+"'");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -339,18 +362,26 @@ public class RacuniPravnihLicaForm extends AbstractForm {
 	}
 		
 		
-	/*public void stanjeZaPeriod() {
+	public void stanjeZaPeriod() {
+		try{
 			  System.out.println(getClass().getResource("/reports/StanjeZaPeriod.jasper"));
 		      String idracuna = tfIdRacuna.getText();
-		      Map<String,Object> params = new HashMap<String,Object>(1);
-		     // params.put("banka",banka);
+		      String od = datumOd.getJFormattedTextField().getText();
+		      String doo = datumDo.getJFormattedTextField().getText();
+		      System.out.print(od);
+		      System.out.print(doo);
+		      Map<String,Object> params = new HashMap<String,Object>(3);
+		      params.put("idracuna",idracuna);
+		      params.put("od",od);
+		      params.put("do",doo);
 			  JasperPrint jp = JasperFillManager.fillReport(
 			  getClass().getResource("/reports/StanjeZaPeriod.jasper").openStream(),
 			  params, DBConnection.getConnection());
 			  JasperViewer.viewReport(jp, false);
-			//} catch (Exception ex) {
+		} catch (Exception ex) {
 			  ex.printStackTrace();
-	}*/
+		}
+	}
 
 	
 	public void zoomBanka() throws SQLException{

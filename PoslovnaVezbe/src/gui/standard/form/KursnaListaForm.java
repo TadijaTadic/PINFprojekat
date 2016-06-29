@@ -13,6 +13,8 @@ import javax.swing.event.ListSelectionListener;
 
 import actions.standard.form.ZoomFormAction;
 import model.KursnaListaTableModel;
+import model.KursuValutiTableModel;
+import model.RacuniPravnihLicaTableModel;
 
 
 public class KursnaListaForm extends AbstractForm {
@@ -251,6 +253,23 @@ public class KursnaListaForm extends AbstractForm {
 			bf.setVisible(true);
 			
 			idBanke.setText((String)bf.getList().getValue("ID_BANKE"));
+		}
+		
+		public void nextForm() {
+			int index = tblGrid.getSelectedRow();
+			String idKlijenta = (String)tblGrid.getModel().getValueAt(index, 0);
+		    //String naziv = (String)tblGrid.getModel().getValueAt(index, 1);
+			KursuValutiForm form = new KursuValutiForm();
+			KursuValutiTableModel rpltm = (KursuValutiTableModel) form.getTblGrid().getModel();
+			try {
+				rpltm.openAsChildForm("SELECT kls_rbr, kurs_u_valuti.id_kursne_liste, OS.va_naziv, PR.va_naziv, kls_kupovni, kls_srednji, kls_prodajni "
+						+ "FROM kurs_u_valuti JOIN  valute as OS on kurs_u_valuti.id_valute=OS.id_valute JOIN valute as PR on val_id_valute=PR.id_valute "
+						+ "JOIN kursna_lista on kurs_u_valuti.id_kursne_liste=kursna_lista.id_kursne_liste WHERE kurs_u_valuti.id_kursne_liste LIKE '%"+idKlijenta+"%'" );
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			form.setVisible(true);
 		}
 	
 

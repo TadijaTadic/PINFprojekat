@@ -22,8 +22,8 @@ public class SpisakAction extends AbstractAction {
 
 	
 	public SpisakAction(AbstractForm form) {
-		putValue(SHORT_DESCRIPTION, "Spisak");
-		putValue(NAME, "...");
+		putValue(SHORT_DESCRIPTION, "Računi banke");
+		putValue(NAME, "Računi banke");
 		this.form = form;
 
 	}

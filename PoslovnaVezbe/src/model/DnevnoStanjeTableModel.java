@@ -1,5 +1,8 @@
 package model;
 
+import gui.standard.form.DnevnoStanjeForm;
+
+import java.sql.Array;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -55,6 +58,7 @@ public class DnevnoStanjeTableModel extends DefaultTableModel {
 			// all cells false
 			return false;
 		}
+		
 		/*
 		public void updateRow(int index, String staraSifra, ArrayList<String> values) throws SQLException {
 			Statement stmt1 = DBConnection.getConnection().createStatement();

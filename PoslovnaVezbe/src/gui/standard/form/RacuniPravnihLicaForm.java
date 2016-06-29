@@ -1,5 +1,6 @@
 package gui.standard.form;
 
+import java.sql.CallableStatement;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -30,6 +31,8 @@ import database.DBConnection;
 import util.Column;
 import util.ColumnList;
 import actions.standard.form.DnevnoStanjeAction;
+import database.DBConnection;
+import actions.main.form.UkidRacunaAction;
 import actions.standard.form.ZoomFormAction;
 import model.DnevnoStanjeTableModel;
 import model.RacuniPravnihLicaTableModel;
@@ -46,6 +49,10 @@ public class RacuniPravnihLicaForm extends AbstractForm {
 	private JCheckBox cbVazi = new JCheckBox();
 	private JButton btnZoom = new JButton("...");
 	private JButton btnDnStanje = new JButton("Dnevno stanje");
+	private JButton btnZoomBanka = new JButton("...");
+	private JButton btnZoomValuta = new JButton("...");
+	private JButton btnUkini = new JButton("Ukini racun");
+	private JTextField tfNaRacun = new JTextField(18);
 	public Object[] collectionOfFields = { tfIdRacuna, tfIdBanke, tfIdValute,tfIdKlijenta,
 			tfBrRacun, tfDatum, cbVazi };
 	
@@ -65,15 +72,21 @@ public class RacuniPravnihLicaForm extends AbstractForm {
 		dataPanel.add(lblIdRacuna);
 		dataPanel.add(tfIdRacuna, "wrap");
 		dataPanel.add(lblIdBanke);
-		dataPanel.add(tfIdBanke, "wrap");
+		dataPanel.add(tfIdBanke);
+		dataPanel.add(btnZoomBanka, "wrap");
+		btnZoomBanka.setAction(new ZoomFormAction(this));
 		dataPanel.add(lblIdValute);
-		dataPanel.add(tfIdValute, "wrap");
+		dataPanel.add(tfIdValute);
+		dataPanel.add(btnZoomValuta, "wrap");
+		btnZoomValuta.setAction(new ZoomFormAction(this));
 		dataPanel.add(lblIdKlijenta);
 		dataPanel.add(tfIdKlijenta);
 		dataPanel.add(btnZoom, "wrap");
 		btnZoom.setAction(new ZoomFormAction(this));
 		dataPanel.add(lblBrRacun);
-		dataPanel.add(tfBrRacun, "wrap");
+		dataPanel.add(tfBrRacun);
+		dataPanel.add(btnUkini,"wrap");
+		btnUkini.setAction(new UkidRacunaAction(this));
 		dataPanel.add(lblDatum);
 		dataPanel.add(tfDatum, "wrap");
 		dataPanel.add(lblVazi);
@@ -338,5 +351,62 @@ public class RacuniPravnihLicaForm extends AbstractForm {
 			//} catch (Exception ex) {
 			  ex.printStackTrace();
 	}*/
+
+	
+	public void zoomBanka() throws SQLException{
+		BankaForm bf = new BankaForm();
+		bf.setLocation(500,140);
+		bf.setModal(true);
+		bf.setVisible(true);
+		
+		tfIdBanke.setText((String)bf.getList().getValue("ID_BANKE"));
+	}
+	public void zoomValuta() throws SQLException{
+		ValuteForm vf = new ValuteForm();
+		vf.setLocation(500,140);
+		vf.setModal(true);
+		vf.setVisible(true);
+		
+		tfIdValute.setText((String)vf.getList().getValue("ID_VALUTE"));
+	}
+	
+	
+	public void UkiniRacun(){
+		JPanel panel = new JPanel(); 	
+		JLabel lblNaRacun = new JLabel("Prenos na racun:");
+		panel.add(lblNaRacun);
+		panel.add(tfNaRacun);
+		if (JOptionPane.showConfirmDialog(this, panel, "Prenos na racun", JOptionPane.YES_NO_OPTION) 
+				== JOptionPane.YES_OPTION) {
+			String NaRacun = tfNaRacun.getText().trim();
+			int index = tblGrid.getSelectedRow();
+			String idRacuna = (String)tblGrid.getModel().getValueAt(index, 0);
+			
+			try {
+				CallableStatement proc = DBConnection.getConnection().prepareCall("{ call Ukid(?,?)}");
+										    
+				proc.setString(1, idRacuna);					
+				proc.setString(2, NaRacun);					    
+				proc.execute();
+				DBConnection.getConnection().commit();
+				
+				} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				}
+		}
+	}
+	
+	
+	public JButton getBtnZoom() {
+		return btnZoom;
+	}
+
+	public JButton getBtnZoomBanka() {
+		return btnZoomBanka;
+}
+	public JButton getBtnZoomValuta() {
+		return btnZoomValuta;
+}
 
 }

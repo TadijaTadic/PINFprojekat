@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import model.BankeTableModel;
 import model.DrzaveTableModel;
 import model.NaseljenoMestoTableModel;
+import model.RacuniPravnihLicaTableModel;
 
 public class RefreshAction extends AbstractAction {
 
@@ -35,6 +36,8 @@ public class RefreshAction extends AbstractAction {
 				((NaseljenoMestoTableModel) dtm).open();
 			else if (dtm instanceof BankeTableModel)
 				((BankeTableModel) dtm).open();
+			else if (dtm instanceof RacuniPravnihLicaTableModel)
+				((RacuniPravnihLicaTableModel) dtm).open();
 			//ovde dodavati refresh za ostale forme
 			
 		} catch (SQLException e) {

@@ -3,6 +3,7 @@ package gui.standard.form;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -13,6 +14,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import actions.standard.form.ZoomFormAction;
 import model.ValuteTableModel;
 
 public class ValuteForm extends AbstractForm {
@@ -21,6 +23,7 @@ public class ValuteForm extends AbstractForm {
 	private JTextField tfSifraValute = new JTextField(5);
 	private JTextField tfNaziv = new JTextField(20);
 	private JCheckBox cbDomicilna = new JCheckBox();
+	private JButton btnZoom = new JButton("...");
 	public Object[] collectionOfFields = { tfIdValute, tfSifraDrzave, tfSifraValute, tfNaziv,
 			 cbDomicilna};
 	
@@ -36,7 +39,9 @@ public class ValuteForm extends AbstractForm {
 		dataPanel.add(lblIdValute);
 		dataPanel.add(tfIdValute, "wrap");
 		dataPanel.add(lblSifraDrzave);
-		dataPanel.add(tfSifraDrzave, "wrap");
+		dataPanel.add(tfSifraDrzave);
+		dataPanel.add(btnZoom, "wrap");
+		btnZoom.setAction(new ZoomFormAction(this));
 		dataPanel.add(lblSifraValute);
 		dataPanel.add(tfSifraValute, "wrap");
 		dataPanel.add(lblNaziv);
@@ -216,4 +221,14 @@ public class ValuteForm extends AbstractForm {
 		// TODO Auto-generated method stub
 		return tfIdValute;
 	}
+	
+	public void zoom() {
+		DrzavaForm df = new DrzavaForm();
+		df.setLocation(500,140);
+		df.setModal(true);
+		df.setVisible(true);
+		
+		tfSifraDrzave.setText((String)df.getList().getValue("DR_SIFRA"));
+	}
+	
 }

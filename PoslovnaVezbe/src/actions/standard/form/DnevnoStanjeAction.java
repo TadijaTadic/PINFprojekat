@@ -22,7 +22,7 @@ public class DnevnoStanjeAction extends AbstractAction {
 
 	@Override
 	public void actionPerformed(ActionEvent evt) {
-		//form.dnevnoStanje();
+		form.dnevnoStanje();
 	}
 	
 }

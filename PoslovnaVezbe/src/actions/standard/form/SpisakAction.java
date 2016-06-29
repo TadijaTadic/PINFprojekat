@@ -9,9 +9,9 @@ import java.util.Map;
 
 import javax.swing.AbstractAction;
 
-//import net.sf.jasperreports.engine.JasperFillManager;
-//import net.sf.jasperreports.engine.JasperPrint;
-//import net.sf.jasperreports.view.JasperViewer;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 import database.DBConnection;
 
 
@@ -30,7 +30,7 @@ public class SpisakAction extends AbstractAction {
 
 	@Override
 	public void actionPerformed(ActionEvent evt) {
-	/*	if (form instanceof BankaForm) {
+		if (form instanceof BankaForm) {
 			try {
 			      System.out.println(getClass().getResource("/reports/SpisakRacuna.jasper"));
 			      String banka = ((BankaForm) form).getTfIdBanke().getText();
@@ -43,7 +43,7 @@ public class SpisakAction extends AbstractAction {
 				} catch (Exception ex) {
 				  ex.printStackTrace();
 			}
-		}			*/
+		}			
 	}
 	
 }

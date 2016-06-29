@@ -220,7 +220,7 @@ public class NalogZaUplatuForm extends AbstractForm {
 	public void addRow() {
 		ArrayList<String> values = new ArrayList<String>();
 		for (Object field : collectionOfFields) {
-			if (field instanceof JTextField)
+			if (field instanceof JTextField) 
 				values.add(((JTextField) field).getText().trim());
 			else if (field instanceof JCheckBox) 
 				if (((JCheckBox) field).isSelected())

@@ -34,7 +34,6 @@ public class CommitAction extends AbstractAction {
 				return;
 			form.editRow();
 		} else if (context.getState() instanceof AddState) {
-			System.out.println("aaaaaa");
 			form.addRow();
 		} else if (context.getState() instanceof SearchState) {
 			form.search();

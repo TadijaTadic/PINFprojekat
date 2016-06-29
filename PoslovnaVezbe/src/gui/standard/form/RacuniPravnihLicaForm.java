@@ -326,16 +326,16 @@ public class RacuniPravnihLicaForm extends AbstractForm {
 	}
 		
 		
-		/*public void stanjeZaPeriod() {
+	/*public void stanjeZaPeriod() {
 			  System.out.println(getClass().getResource("/reports/StanjeZaPeriod.jasper"));
 		      String idracuna = tfIdRacuna.getText();
 		      Map<String,Object> params = new HashMap<String,Object>(1);
-		      params.put("banka",banka);
+		     // params.put("banka",banka);
 			  JasperPrint jp = JasperFillManager.fillReport(
 			  getClass().getResource("/reports/StanjeZaPeriod.jasper").openStream(),
 			  params, DBConnection.getConnection());
 			  JasperViewer.viewReport(jp, false);
-			} catch (Exception ex) {
+			//} catch (Exception ex) {
 			  ex.printStackTrace();
 	}*/
 

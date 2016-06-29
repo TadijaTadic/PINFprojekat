@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SpisakRacuna" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3e0e2e01-4c83-48cb-abd8-d98796cbd918">
-	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="banka" class="java.lang.String"/>
@@ -13,13 +13,14 @@
      RACUNI_PRAVNIH_LICA."BAR_RACUN" AS RACUNI_PRAVNIH_LICA_BAR_RACUN
 FROM
      "dbo"."DNEVNO_STANJE_RACUNA" DNEVNO_STANJE_RACUNA INNER JOIN "dbo"."RACUNI_PRAVNIH_LICA" RACUNI_PRAVNIH_LICA ON DNEVNO_STANJE_RACUNA."ID_RACUNA" = RACUNI_PRAVNIH_LICA."ID_RACUNA"
-WHERE RACUNI_PRAVNIH_LICA."ID_BANKE" = $P{banka}]]>
+WHERE RACUNI_PRAVNIH_LICA."ID_BANKE" = $P{banka} AND DNEVNO_STANJE_RACUNA."DSR_IZVOD"=(SELECT MAX(DNEVNO_STANJE_RACUNA."DSR_IZVOD") FROM
+"dbo"."DNEVNO_STANJE_RACUNA" DNEVNO_STANJE_RACUNA)]]>
 	</queryString>
-	<field name="DNEVNO_STANJE_RACUNA_DSR_NOVOSTANJE" class="java.math.BigDecimal"/>
-	<field name="RACUNI_PRAVNIH_LICA_ID_RACUNA" class="java.lang.Long"/>
 	<field name="RACUNI_PRAVNIH_LICA_ID_KLIJENTA" class="java.lang.Integer"/>
-	<field name="RACUNI_PRAVNIH_LICA_BAR_DATOTV" class="java.sql.Timestamp"/>
+	<field name="RACUNI_PRAVNIH_LICA_ID_RACUNA" class="java.lang.Long"/>
 	<field name="RACUNI_PRAVNIH_LICA_BAR_RACUN" class="java.lang.String"/>
+	<field name="DNEVNO_STANJE_RACUNA_DSR_NOVOSTANJE" class="java.math.BigDecimal"/>
+	<field name="RACUNI_PRAVNIH_LICA_BAR_DATOTV" class="java.sql.Timestamp"/>
 	<pageHeader>
 		<band height="116" splitType="Stretch">
 			<textField pattern="dd/MM/yyyy">

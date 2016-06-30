@@ -37,6 +37,7 @@ import util.Column;
 import util.ColumnList;
 import util.DateLabelFormatter;
 import actions.standard.form.DnevnoStanjeAction;
+import actions.standard.form.ExportIzvodaAction;
 import actions.standard.form.StanjeZaPeriodAction;
 import database.DBConnection;
 import actions.main.form.UkidRacunaAction;
@@ -68,6 +69,7 @@ public class RacuniPravnihLicaForm extends AbstractForm {
 	private JButton btnZoomValuta = new JButton("...");
 	private JButton btnUkini = new JButton("Ukini racun");
 	private JTextField tfNaRacun = new JTextField(18);
+	private JButton btnExportIzvoda = new JButton("Export izvoda");
 	public Object[] collectionOfFields = { tfIdRacuna, tfIdBanke, tfIdValute,tfIdKlijenta,
 			tfBrRacun, tfDatum, cbVazi };
 	
@@ -112,8 +114,10 @@ public class RacuniPravnihLicaForm extends AbstractForm {
 		dataPanel.add(datumOd, "wrap");
 		dataPanel.add(lblDo);
 		dataPanel.add(datumDo, "wrap");
-		dataPanel.add(btnStZaPer, "wrap");
+		dataPanel.add(btnStZaPer);
 		btnStZaPer.setAction(new StanjeZaPeriodAction(this));
+		dataPanel.add(btnExportIzvoda);
+		btnExportIzvoda.setAction(new ExportIzvodaAction(this));
 		bottomPanel.add(dataPanel);
 		
 }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<Results>
+  <Row>
+    <ID_NALOGA>1</ID_NALOGA>
+    <SIFRA_BANKE>1  </SIFRA_BANKE>
+    <BAN_SIFRA_BANKE>1  </BAN_SIFRA_BANKE>
+    <UKUPAN_IZNOS>100000.00</UKUPAN_IZNOS>
+    <DATUM>2016-10-06 00:00:00.0</DATUM>
+    <RTGS_>false</RTGS_>
+    <STATUS>1</STATUS>
+  </Row>
+</Results>

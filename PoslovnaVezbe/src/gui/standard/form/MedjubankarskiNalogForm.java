@@ -3,6 +3,7 @@ package gui.standard.form;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -12,6 +13,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import actions.standard.form.ExportNalogaAction;
 import model.MedjubankarskiNalogTableModel;
 
 
@@ -26,6 +28,7 @@ public class MedjubankarskiNalogForm extends AbstractForm {
 	private JTextField datum = new JTextField(20);
 	private JCheckBox rtgs = new JCheckBox();
 	private JTextField status = new JTextField(2);
+	private JButton btnExportNaloga = new JButton("Export naloga");
 	public Object[] collectionOfFields = { idNaloga, sifraBanke, banSifraBanke, ukupanIznos,
 			datum, rtgs, status };
 	
@@ -54,6 +57,8 @@ public class MedjubankarskiNalogForm extends AbstractForm {
 		dataPanel.add(rtgs, "wrap");
 		dataPanel.add(lblStatus);
 		dataPanel.add(status, "wrap");
+		dataPanel.add(btnExportNaloga);
+		btnExportNaloga.setAction(new ExportNalogaAction(this));
 		bottomPanel.add(dataPanel);
 		
 		toolBar.setVisible(false);

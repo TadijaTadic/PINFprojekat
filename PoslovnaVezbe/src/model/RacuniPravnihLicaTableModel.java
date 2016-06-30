@@ -1,5 +1,6 @@
 package model;
 
+import java.io.File;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,7 +8,20 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import util.SortUtils;
 import database.DBConnection;
@@ -198,5 +212,45 @@ public class RacuniPravnihLicaTableModel extends DefaultTableModel {
 	
 	public void openAsChildForm(String sql) throws SQLException{
 		fillData(sql);
+	}
+
+	public void exportIzvoda(JTable table) throws Exception {
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	    DocumentBuilder builder = factory.newDocumentBuilder();
+	    Document doc = builder.newDocument();
+	    Element results = doc.createElement("Results");
+	    doc.appendChild(results);
+	    
+	    int index = table.getSelectedRow();
+	    String id_racuna = (String) table.getValueAt(index, 0);
+	    ResultSet rs = DBConnection.getConnection().createStatement().executeQuery("SELECT * FROM DNEVNO_STANJE_RACUNA WHERE ID_RACUNA="+id_racuna);
+	    ResultSetMetaData rsmd = rs.getMetaData();
+	    int colCount = rsmd.getColumnCount();
+
+	    while (rs.next()) {
+	      Element row = doc.createElement("Row");
+	      results.appendChild(row);
+	      for (int i = 1; i <= colCount; i++) {
+	        String columnName = rsmd.getColumnName(i);
+	        Object value = rs.getObject(i);
+	        Element node = doc.createElement(columnName);
+	        node.appendChild(doc.createTextNode(value.toString()));
+	        row.appendChild(node);
+	      }
+	    }
+	    
+	    DOMSource domSource = new DOMSource(doc);
+	    TransformerFactory tf = TransformerFactory.newInstance();
+	    Transformer transformer = tf.newTransformer();
+	    transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+	    transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+	    transformer.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
+	    transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+	    transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+	    
+	    StreamResult result = new StreamResult(new File("IzvodKlijenta.xml"));
+		transformer.transform(domSource, result);
+
+		System.out.println("File saved!");		
 	}
 }

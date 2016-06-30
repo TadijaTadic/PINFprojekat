@@ -2,6 +2,7 @@ package gui.standard.form;
 
 import gui.main.form.MainFrame;
 
+import java.sql.CallableStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
@@ -22,6 +23,7 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
+import database.DBConnection;
 import actions.standard.form.ZoomFormAction;
 import model.BankeTableModel;
 import model.DrzaveTableModel;
@@ -235,6 +237,7 @@ public class NalogZaUplatuForm extends AbstractForm {
 			NalogZaUplatuTableModel nzutm = (NalogZaUplatuTableModel) tblGrid.getModel();
 			int index = nzutm.insertRow(values, tfBrStavke.getText().trim());
 			tblGrid.setRowSelectionInterval(index, index);
+			PopuniMedjuBankarskiNalog();
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Greska",
 					JOptionPane.ERROR_MESSAGE);
@@ -354,5 +357,35 @@ public class NalogZaUplatuForm extends AbstractForm {
 	public JButton getBtnZoomSifraMesta() {
 		return btnZoomSifraMesta;
 	}
+	
+	public void PopuniMedjuBankarskiNalog(){
+        String racunPoverioca = tfRacunPoverioca.getText().trim();
+        String racunDuznika = tfRacunDuznika.getText().trim();
+        String iznos = tfIznos.getText().trim();
+        String datum = datumPrijema.getJFormattedTextField().getText();
+        String hitno;
+        
+        if (cbHitno.isSelected())
+			hitno = "true";
+		else 
+			hitno = "false";
+  
+    try{
+		CallableStatement proc = DBConnection.getConnection().prepareCall("{ call Medjubank_nalog(?,?,?,?,?)}");
+								    
+		proc.setString(1, racunPoverioca);					
+		proc.setString(2, racunDuznika);
+		proc.setString(3, iznos);
+		proc.setString(4, datum);
+		proc.setString(5, hitno);
+		proc.execute();
+		DBConnection.getConnection().commit();
+		
+		} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		}
+
+}
 	
 }

@@ -55,6 +55,8 @@ public class MedjubankarskiNalogForm extends AbstractForm {
 		dataPanel.add(lblStatus);
 		dataPanel.add(status, "wrap");
 		bottomPanel.add(dataPanel);
+		
+		toolBar.setVisible(false);
 	}
 
 	@Override
@@ -128,83 +130,15 @@ public class MedjubankarskiNalogForm extends AbstractForm {
 		}
 	}
 
-	@Override
-	public void addRow() {
-		ArrayList<String> values = new ArrayList<String>();
-		for (Object field : collectionOfFields) {
-			if (field instanceof JTextField)
-				values.add(((JTextField) field).getText().trim());
-			else if (field instanceof JCheckBox) 
-				if (((JCheckBox) field).isSelected())
-					values.add("true");
-				else 
-					values.add("false");
-			
-		}
-		try {
-			MedjubankarskiNalogTableModel btm = (MedjubankarskiNalogTableModel) tblGrid.getModel();
-			int index = btm.insertRow(values, idNaloga.getText().trim());
-			tblGrid.setRowSelectionInterval(index, index);
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(this, e.getMessage(), "Greska",
-					JOptionPane.ERROR_MESSAGE);
-		}
-	}
+	
 
-	@Override
-	public void editRow() {
-		ArrayList<String> values = new ArrayList<String>();
-		for (Object field : collectionOfFields) {
-			if (field instanceof JTextField)
-				values.add(((JTextField) field).getText().trim());
-			else if (field instanceof JCheckBox) 
-				if (((JCheckBox) field).isSelected())
-					values.add("true");
-				else 
-					values.add("false");
-			
-		}
-		int index = tblGrid.getSelectedRow();
-		String staraSifra = (String) tblGrid.getValueAt(index, 0); 
-		try {
-			MedjubankarskiNalogTableModel btm = (MedjubankarskiNalogTableModel) tblGrid.getModel();
-			btm.updateRow(index, staraSifra, values);
-			tblGrid.setRowSelectionInterval(index, index);
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(this, e.getMessage(), "Greska",
-					JOptionPane.ERROR_MESSAGE);
-		}
-	}
+	
 
 	public JTextField getIdNaloga() {
 		return idNaloga;
 	}
 
-	@Override
-	public void removeRow() {
-		int index = tblGrid.getSelectedRow();
-		MedjubankarskiNalogTableModel tableModel = (MedjubankarskiNalogTableModel) tblGrid.getModel();
-		if (index == -1) // Ako nema selektovanog reda (tabela prazna)
-			return; // izlazak
-		if (JOptionPane.showConfirmDialog(this, "Da li ste sigurni?",
-				"Pitanje", JOptionPane.YES_NO_OPTION) != JOptionPane.YES_OPTION) {
-			return;
-		}
-		// kada obrisemo tekuci red, selektovacemo sledeci (newindex):
-		int newIndex = index;
-		// sem ako se obrise poslednji red, tada selektujemo prethodni
-		if (index == tableModel.getRowCount() - 1)
-			newIndex--;
-		try {
-			MedjubankarskiNalogTableModel btm = (MedjubankarskiNalogTableModel) tblGrid.getModel();
-			btm.deleteRow(index);
-			if (tableModel.getRowCount() > 0)
-				tblGrid.setRowSelectionInterval(newIndex, newIndex);
-		} catch (SQLException ex) {
-			JOptionPane.showMessageDialog(this, ex.getMessage(), "Greska",
-					JOptionPane.ERROR_MESSAGE);
-		}
-	}
+	
 
 	@Override
 	public void search() {

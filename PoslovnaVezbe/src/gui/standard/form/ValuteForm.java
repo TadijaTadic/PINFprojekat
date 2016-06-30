@@ -14,6 +14,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import util.Column;
+import util.ColumnList;
 import actions.standard.form.ZoomFormAction;
 import model.ValuteTableModel;
 
@@ -231,4 +233,11 @@ public class ValuteForm extends AbstractForm {
 		tfSifraDrzave.setText((String)df.getList().getValue("DR_SIFRA"));
 	}
 	
+	public void pickup() {
+		 int index = tblGrid.getSelectedRow();
+		 String idValute = (String)tblGrid.getModel().getValueAt(index, 0);
+		 list = new ColumnList();
+		 list.add(new Column("ID_VALUTE",idValute));
+		 this.setVisible(false);
+	}
 }
